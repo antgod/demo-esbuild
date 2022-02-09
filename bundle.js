@@ -498,7 +498,7 @@
             }
             return element;
           };
-          function createElement3(type, config, children) {
+          function createElement2(type, config, children) {
             var propName;
             var props = {};
             var key = null;
@@ -1546,7 +1546,7 @@
                 error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
               }
             }
-            var element = createElement3.apply(this, arguments);
+            var element = createElement2.apply(this, arguments);
             if (element == null) {
               return element;
             }
@@ -3025,21 +3025,8 @@
                 prevGroup = console.group;
                 prevGroupCollapsed = console.groupCollapsed;
                 prevGroupEnd = console.groupEnd;
-                var props = {
-                  configurable: true,
-                  enumerable: true,
-                  value: disabledLog,
-                  writable: true
-                };
-                Object.defineProperties(console, {
-                  info: props,
-                  log: props,
-                  warn: props,
-                  error: props,
-                  group: props,
-                  groupCollapsed: props,
-                  groupEnd: props
-                });
+                var props = { configurable: true, enumerable: true, value: disabledLog, writable: true };
+                Object.defineProperties(console, { info: props, log: props, warn: props, error: props, group: props, groupCollapsed: props, groupEnd: props });
               }
               disabledDepth++;
             }
@@ -3048,34 +3035,8 @@
             {
               disabledDepth--;
               if (disabledDepth === 0) {
-                var props = {
-                  configurable: true,
-                  enumerable: true,
-                  writable: true
-                };
-                Object.defineProperties(console, {
-                  log: _assign({}, props, {
-                    value: prevLog
-                  }),
-                  info: _assign({}, props, {
-                    value: prevInfo
-                  }),
-                  warn: _assign({}, props, {
-                    value: prevWarn
-                  }),
-                  error: _assign({}, props, {
-                    value: prevError
-                  }),
-                  group: _assign({}, props, {
-                    value: prevGroup
-                  }),
-                  groupCollapsed: _assign({}, props, {
-                    value: prevGroupCollapsed
-                  }),
-                  groupEnd: _assign({}, props, {
-                    value: prevGroupEnd
-                  })
-                });
+                var props = { configurable: true, enumerable: true, writable: true };
+                Object.defineProperties(console, { log: _assign({}, props, { value: prevLog }), info: _assign({}, props, { value: prevInfo }), warn: _assign({}, props, { value: prevWarn }), error: _assign({}, props, { value: prevError }), group: _assign({}, props, { value: prevGroup }), groupCollapsed: _assign({}, props, { value: prevGroupCollapsed }), groupEnd: _assign({}, props, { value: prevGroupEnd }) });
               }
               if (disabledDepth < 0) {
                 error("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
@@ -3128,11 +3089,9 @@
                 var Fake = function() {
                   throw Error();
                 };
-                Object.defineProperty(Fake.prototype, "props", {
-                  set: function() {
-                    throw Error();
-                  }
-                });
+                Object.defineProperty(Fake.prototype, "props", { set: function() {
+                  throw Error();
+                } });
                 if (typeof Reflect === "object" && Reflect.construct) {
                   try {
                     Reflect.construct(Fake, []);
@@ -3421,15 +3380,7 @@
                 return "";
             }
           }
-          var hasReadOnlyValue = {
-            button: true,
-            checkbox: true,
-            image: true,
-            hidden: true,
-            radio: true,
-            reset: true,
-            submit: true
-          };
+          var hasReadOnlyValue = { button: true, checkbox: true, image: true, hidden: true, radio: true, reset: true, submit: true };
           function checkControlledValueProps(tagName, props) {
             {
               if (!(hasReadOnlyValue[props.type] || props.onChange || props.onInput || props.readOnly || props.disabled || props.value == null)) {
@@ -3471,31 +3422,21 @@
               return;
             }
             var get2 = descriptor.get, set2 = descriptor.set;
-            Object.defineProperty(node, valueField, {
-              configurable: true,
-              get: function() {
-                return get2.call(this);
-              },
-              set: function(value) {
-                currentValue = "" + value;
-                set2.call(this, value);
-              }
-            });
-            Object.defineProperty(node, valueField, {
-              enumerable: descriptor.enumerable
-            });
-            var tracker = {
-              getValue: function() {
-                return currentValue;
-              },
-              setValue: function(value) {
-                currentValue = "" + value;
-              },
-              stopTracking: function() {
-                detachTracker(node);
-                delete node[valueField];
-              }
-            };
+            Object.defineProperty(node, valueField, { configurable: true, get: function() {
+              return get2.call(this);
+            }, set: function(value) {
+              currentValue = "" + value;
+              set2.call(this, value);
+            } });
+            Object.defineProperty(node, valueField, { enumerable: descriptor.enumerable });
+            var tracker = { getValue: function() {
+              return currentValue;
+            }, setValue: function(value) {
+              currentValue = "" + value;
+            }, stopTracking: function() {
+              detachTracker(node);
+              delete node[valueField];
+            } };
             return tracker;
           }
           function track(node) {
@@ -3542,12 +3483,7 @@
           function getHostProps(element, props) {
             var node = element;
             var checked = props.checked;
-            var hostProps = _assign({}, props, {
-              defaultChecked: void 0,
-              defaultValue: void 0,
-              value: void 0,
-              checked: checked != null ? checked : node._wrapperState.initialChecked
-            });
+            var hostProps = _assign({}, props, { defaultChecked: void 0, defaultValue: void 0, value: void 0, checked: checked != null ? checked : node._wrapperState.initialChecked });
             return hostProps;
           }
           function initWrapperState(element, props) {
@@ -3564,11 +3500,7 @@
             }
             var node = element;
             var defaultValue = props.defaultValue == null ? "" : props.defaultValue;
-            node._wrapperState = {
-              initialChecked: props.checked != null ? props.checked : props.defaultChecked,
-              initialValue: getToStringValue(props.value != null ? props.value : defaultValue),
-              controlled: isControlled(props)
-            };
+            node._wrapperState = { initialChecked: props.checked != null ? props.checked : props.defaultChecked, initialValue: getToStringValue(props.value != null ? props.value : defaultValue), controlled: isControlled(props) };
           }
           function updateChecked(element, props) {
             var node = element;
@@ -3731,9 +3663,7 @@
             }
           }
           function getHostProps$1(element, props) {
-            var hostProps = _assign({
-              children: void 0
-            }, props);
+            var hostProps = _assign({ children: void 0 }, props);
             var content = flattenChildren(props.children);
             if (content) {
               hostProps.children = content;
@@ -3807,18 +3737,14 @@
             }
           }
           function getHostProps$2(element, props) {
-            return _assign({}, props, {
-              value: void 0
-            });
+            return _assign({}, props, { value: void 0 });
           }
           function initWrapperState$1(element, props) {
             var node = element;
             {
               checkSelectPropTypes(props);
             }
-            node._wrapperState = {
-              wasMultiple: !!props.multiple
-            };
+            node._wrapperState = { wasMultiple: !!props.multiple };
             {
               if (props.value !== void 0 && props.defaultValue !== void 0 && !didWarnValueDefaultValue$1) {
                 error("Select elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled select element and remove one of these props. More info: https://reactjs.org/link/controlled-components");
@@ -3866,11 +3792,7 @@
                 throw Error("`dangerouslySetInnerHTML` does not make sense on <textarea>.");
               }
             }
-            var hostProps = _assign({}, props, {
-              value: void 0,
-              defaultValue: void 0,
-              children: toString(node._wrapperState.initialValue)
-            });
+            var hostProps = _assign({}, props, { value: void 0, defaultValue: void 0, children: toString(node._wrapperState.initialValue) });
             return hostProps;
           }
           function initWrapperState$2(element, props) {
@@ -3911,9 +3833,7 @@
               }
               initialValue = defaultValue;
             }
-            node._wrapperState = {
-              initialValue: getToStringValue(initialValue)
-            };
+            node._wrapperState = { initialValue: getToStringValue(initialValue) };
           }
           function updateWrapper$1(element, props) {
             var node = element;
@@ -3947,11 +3867,7 @@
           var HTML_NAMESPACE = "http://www.w3.org/1999/xhtml";
           var MATH_NAMESPACE = "http://www.w3.org/1998/Math/MathML";
           var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-          var Namespaces = {
-            html: HTML_NAMESPACE,
-            mathml: MATH_NAMESPACE,
-            svg: SVG_NAMESPACE
-          };
+          var Namespaces = { html: HTML_NAMESPACE, mathml: MATH_NAMESPACE, svg: SVG_NAMESPACE };
           function getIntrinsicNamespace(type) {
             switch (type) {
               case "svg":
@@ -4015,55 +3931,7 @@
             }
             node.textContent = text;
           };
-          var shorthandToLonghand = {
-            animation: ["animationDelay", "animationDirection", "animationDuration", "animationFillMode", "animationIterationCount", "animationName", "animationPlayState", "animationTimingFunction"],
-            background: ["backgroundAttachment", "backgroundClip", "backgroundColor", "backgroundImage", "backgroundOrigin", "backgroundPositionX", "backgroundPositionY", "backgroundRepeat", "backgroundSize"],
-            backgroundPosition: ["backgroundPositionX", "backgroundPositionY"],
-            border: ["borderBottomColor", "borderBottomStyle", "borderBottomWidth", "borderImageOutset", "borderImageRepeat", "borderImageSlice", "borderImageSource", "borderImageWidth", "borderLeftColor", "borderLeftStyle", "borderLeftWidth", "borderRightColor", "borderRightStyle", "borderRightWidth", "borderTopColor", "borderTopStyle", "borderTopWidth"],
-            borderBlockEnd: ["borderBlockEndColor", "borderBlockEndStyle", "borderBlockEndWidth"],
-            borderBlockStart: ["borderBlockStartColor", "borderBlockStartStyle", "borderBlockStartWidth"],
-            borderBottom: ["borderBottomColor", "borderBottomStyle", "borderBottomWidth"],
-            borderColor: ["borderBottomColor", "borderLeftColor", "borderRightColor", "borderTopColor"],
-            borderImage: ["borderImageOutset", "borderImageRepeat", "borderImageSlice", "borderImageSource", "borderImageWidth"],
-            borderInlineEnd: ["borderInlineEndColor", "borderInlineEndStyle", "borderInlineEndWidth"],
-            borderInlineStart: ["borderInlineStartColor", "borderInlineStartStyle", "borderInlineStartWidth"],
-            borderLeft: ["borderLeftColor", "borderLeftStyle", "borderLeftWidth"],
-            borderRadius: ["borderBottomLeftRadius", "borderBottomRightRadius", "borderTopLeftRadius", "borderTopRightRadius"],
-            borderRight: ["borderRightColor", "borderRightStyle", "borderRightWidth"],
-            borderStyle: ["borderBottomStyle", "borderLeftStyle", "borderRightStyle", "borderTopStyle"],
-            borderTop: ["borderTopColor", "borderTopStyle", "borderTopWidth"],
-            borderWidth: ["borderBottomWidth", "borderLeftWidth", "borderRightWidth", "borderTopWidth"],
-            columnRule: ["columnRuleColor", "columnRuleStyle", "columnRuleWidth"],
-            columns: ["columnCount", "columnWidth"],
-            flex: ["flexBasis", "flexGrow", "flexShrink"],
-            flexFlow: ["flexDirection", "flexWrap"],
-            font: ["fontFamily", "fontFeatureSettings", "fontKerning", "fontLanguageOverride", "fontSize", "fontSizeAdjust", "fontStretch", "fontStyle", "fontVariant", "fontVariantAlternates", "fontVariantCaps", "fontVariantEastAsian", "fontVariantLigatures", "fontVariantNumeric", "fontVariantPosition", "fontWeight", "lineHeight"],
-            fontVariant: ["fontVariantAlternates", "fontVariantCaps", "fontVariantEastAsian", "fontVariantLigatures", "fontVariantNumeric", "fontVariantPosition"],
-            gap: ["columnGap", "rowGap"],
-            grid: ["gridAutoColumns", "gridAutoFlow", "gridAutoRows", "gridTemplateAreas", "gridTemplateColumns", "gridTemplateRows"],
-            gridArea: ["gridColumnEnd", "gridColumnStart", "gridRowEnd", "gridRowStart"],
-            gridColumn: ["gridColumnEnd", "gridColumnStart"],
-            gridColumnGap: ["columnGap"],
-            gridGap: ["columnGap", "rowGap"],
-            gridRow: ["gridRowEnd", "gridRowStart"],
-            gridRowGap: ["rowGap"],
-            gridTemplate: ["gridTemplateAreas", "gridTemplateColumns", "gridTemplateRows"],
-            listStyle: ["listStyleImage", "listStylePosition", "listStyleType"],
-            margin: ["marginBottom", "marginLeft", "marginRight", "marginTop"],
-            marker: ["markerEnd", "markerMid", "markerStart"],
-            mask: ["maskClip", "maskComposite", "maskImage", "maskMode", "maskOrigin", "maskPositionX", "maskPositionY", "maskRepeat", "maskSize"],
-            maskPosition: ["maskPositionX", "maskPositionY"],
-            outline: ["outlineColor", "outlineStyle", "outlineWidth"],
-            overflow: ["overflowX", "overflowY"],
-            padding: ["paddingBottom", "paddingLeft", "paddingRight", "paddingTop"],
-            placeContent: ["alignContent", "justifyContent"],
-            placeItems: ["alignItems", "justifyItems"],
-            placeSelf: ["alignSelf", "justifySelf"],
-            textDecoration: ["textDecorationColor", "textDecorationLine", "textDecorationStyle"],
-            textEmphasis: ["textEmphasisColor", "textEmphasisStyle"],
-            transition: ["transitionDelay", "transitionDuration", "transitionProperty", "transitionTimingFunction"],
-            wordWrap: ["overflowWrap"]
-          };
+          var shorthandToLonghand = { animation: ["animationDelay", "animationDirection", "animationDuration", "animationFillMode", "animationIterationCount", "animationName", "animationPlayState", "animationTimingFunction"], background: ["backgroundAttachment", "backgroundClip", "backgroundColor", "backgroundImage", "backgroundOrigin", "backgroundPositionX", "backgroundPositionY", "backgroundRepeat", "backgroundSize"], backgroundPosition: ["backgroundPositionX", "backgroundPositionY"], border: ["borderBottomColor", "borderBottomStyle", "borderBottomWidth", "borderImageOutset", "borderImageRepeat", "borderImageSlice", "borderImageSource", "borderImageWidth", "borderLeftColor", "borderLeftStyle", "borderLeftWidth", "borderRightColor", "borderRightStyle", "borderRightWidth", "borderTopColor", "borderTopStyle", "borderTopWidth"], borderBlockEnd: ["borderBlockEndColor", "borderBlockEndStyle", "borderBlockEndWidth"], borderBlockStart: ["borderBlockStartColor", "borderBlockStartStyle", "borderBlockStartWidth"], borderBottom: ["borderBottomColor", "borderBottomStyle", "borderBottomWidth"], borderColor: ["borderBottomColor", "borderLeftColor", "borderRightColor", "borderTopColor"], borderImage: ["borderImageOutset", "borderImageRepeat", "borderImageSlice", "borderImageSource", "borderImageWidth"], borderInlineEnd: ["borderInlineEndColor", "borderInlineEndStyle", "borderInlineEndWidth"], borderInlineStart: ["borderInlineStartColor", "borderInlineStartStyle", "borderInlineStartWidth"], borderLeft: ["borderLeftColor", "borderLeftStyle", "borderLeftWidth"], borderRadius: ["borderBottomLeftRadius", "borderBottomRightRadius", "borderTopLeftRadius", "borderTopRightRadius"], borderRight: ["borderRightColor", "borderRightStyle", "borderRightWidth"], borderStyle: ["borderBottomStyle", "borderLeftStyle", "borderRightStyle", "borderTopStyle"], borderTop: ["borderTopColor", "borderTopStyle", "borderTopWidth"], borderWidth: ["borderBottomWidth", "borderLeftWidth", "borderRightWidth", "borderTopWidth"], columnRule: ["columnRuleColor", "columnRuleStyle", "columnRuleWidth"], columns: ["columnCount", "columnWidth"], flex: ["flexBasis", "flexGrow", "flexShrink"], flexFlow: ["flexDirection", "flexWrap"], font: ["fontFamily", "fontFeatureSettings", "fontKerning", "fontLanguageOverride", "fontSize", "fontSizeAdjust", "fontStretch", "fontStyle", "fontVariant", "fontVariantAlternates", "fontVariantCaps", "fontVariantEastAsian", "fontVariantLigatures", "fontVariantNumeric", "fontVariantPosition", "fontWeight", "lineHeight"], fontVariant: ["fontVariantAlternates", "fontVariantCaps", "fontVariantEastAsian", "fontVariantLigatures", "fontVariantNumeric", "fontVariantPosition"], gap: ["columnGap", "rowGap"], grid: ["gridAutoColumns", "gridAutoFlow", "gridAutoRows", "gridTemplateAreas", "gridTemplateColumns", "gridTemplateRows"], gridArea: ["gridColumnEnd", "gridColumnStart", "gridRowEnd", "gridRowStart"], gridColumn: ["gridColumnEnd", "gridColumnStart"], gridColumnGap: ["columnGap"], gridGap: ["columnGap", "rowGap"], gridRow: ["gridRowEnd", "gridRowStart"], gridRowGap: ["rowGap"], gridTemplate: ["gridTemplateAreas", "gridTemplateColumns", "gridTemplateRows"], listStyle: ["listStyleImage", "listStylePosition", "listStyleType"], margin: ["marginBottom", "marginLeft", "marginRight", "marginTop"], marker: ["markerEnd", "markerMid", "markerStart"], mask: ["maskClip", "maskComposite", "maskImage", "maskMode", "maskOrigin", "maskPositionX", "maskPositionY", "maskRepeat", "maskSize"], maskPosition: ["maskPositionX", "maskPositionY"], outline: ["outlineColor", "outlineStyle", "outlineWidth"], overflow: ["overflowX", "overflowY"], padding: ["paddingBottom", "paddingLeft", "paddingRight", "paddingTop"], placeContent: ["alignContent", "justifyContent"], placeItems: ["alignItems", "justifyItems"], placeSelf: ["alignSelf", "justifySelf"], textDecoration: ["textDecorationColor", "textDecorationLine", "textDecorationStyle"], textEmphasis: ["textEmphasisColor", "textEmphasisStyle"], transition: ["transitionDelay", "transitionDuration", "transitionProperty", "transitionTimingFunction"], wordWrap: ["overflowWrap"] };
           var isUnitlessNumber = {
             animationIterationCount: true,
             borderImageOutset: true,
@@ -4295,9 +4163,7 @@
             track: true,
             wbr: true
           };
-          var voidElementTags = _assign({
-            menuitem: true
-          }, omittedCloseTags);
+          var voidElementTags = _assign({ menuitem: true }, omittedCloseTags);
           var HTML = "__html";
           function assertValidProps(tag, props) {
             if (!props) {
@@ -5269,11 +5135,9 @@
           if (canUseDOM) {
             try {
               var options = {};
-              Object.defineProperty(options, "passive", {
-                get: function() {
-                  passiveBrowserEventsSupported = true;
-                }
-              });
+              Object.defineProperty(options, "passive", { get: function() {
+                passiveBrowserEventsSupported = true;
+              } });
               window.addEventListener("test", options, options);
               window.removeEventListener("test", options, options);
             } catch (e) {
@@ -5363,12 +5227,10 @@
           var caughtError = null;
           var hasRethrowError = false;
           var rethrowError = null;
-          var reporter = {
-            onError: function(error2) {
-              hasError = true;
-              caughtError = error2;
-            }
-          };
+          var reporter = { onError: function(error2) {
+            hasError = true;
+            caughtError = error2;
+          } };
           function invokeGuardedCallback(name, func, context, a, b, c, d, e, f) {
             hasError = false;
             caughtError = null;
@@ -5745,13 +5607,7 @@
             return discreteReplayableEvents.indexOf(eventType) > -1;
           }
           function createQueuedReplayableEvent(blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent) {
-            return {
-              blockedOn,
-              domEventName,
-              eventSystemFlags: eventSystemFlags | IS_REPLAYED,
-              nativeEvent,
-              targetContainers: [targetContainer]
-            };
+            return { blockedOn, domEventName, eventSystemFlags: eventSystemFlags | IS_REPLAYED, nativeEvent, targetContainers: [targetContainer] };
           }
           function queueDiscreteEvent(blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent) {
             var queuedEvent = createQueuedReplayableEvent(blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent);
@@ -5986,12 +5842,7 @@
             prefixes2["Moz" + styleProp] = "moz" + eventName;
             return prefixes2;
           }
-          var vendorPrefixes = {
-            animationend: makePrefixMap("Animation", "AnimationEnd"),
-            animationiteration: makePrefixMap("Animation", "AnimationIteration"),
-            animationstart: makePrefixMap("Animation", "AnimationStart"),
-            transitionend: makePrefixMap("Transition", "TransitionEnd")
-          };
+          var vendorPrefixes = { animationend: makePrefixMap("Animation", "AnimationEnd"), animationiteration: makePrefixMap("Animation", "AnimationIteration"), animationstart: makePrefixMap("Animation", "AnimationStart"), transitionend: makePrefixMap("Transition", "TransitionEnd") };
           var prefixedEventNames = {};
           var style = {};
           if (canUseDOM) {
@@ -6719,16 +6570,11 @@
             return listener;
           }
           function addEventCaptureListenerWithPassiveFlag(target, eventType, listener, passive) {
-            target.addEventListener(eventType, listener, {
-              capture: true,
-              passive
-            });
+            target.addEventListener(eventType, listener, { capture: true, passive });
             return listener;
           }
           function addEventBubbleListenerWithPassiveFlag(target, eventType, listener, passive) {
-            target.addEventListener(eventType, listener, {
-              passive
-            });
+            target.addEventListener(eventType, listener, { passive });
             return listener;
           }
           var root = null;
@@ -6860,21 +6706,11 @@
             });
             return SyntheticBaseEvent;
           }
-          var EventInterface = {
-            eventPhase: 0,
-            bubbles: 0,
-            cancelable: 0,
-            timeStamp: function(event) {
-              return event.timeStamp || Date.now();
-            },
-            defaultPrevented: 0,
-            isTrusted: 0
-          };
+          var EventInterface = { eventPhase: 0, bubbles: 0, cancelable: 0, timeStamp: function(event) {
+            return event.timeStamp || Date.now();
+          }, defaultPrevented: 0, isTrusted: 0 };
           var SyntheticEvent = createSyntheticEvent(EventInterface);
-          var UIEventInterface = _assign({}, EventInterface, {
-            view: 0,
-            detail: 0
-          });
+          var UIEventInterface = _assign({}, EventInterface, { view: 0, detail: 0 });
           var SyntheticUIEvent = createSyntheticEvent(UIEventInterface);
           var lastMovementX;
           var lastMovementY;
@@ -6891,117 +6727,38 @@
               lastMouseEvent = event;
             }
           }
-          var MouseEventInterface = _assign({}, UIEventInterface, {
-            screenX: 0,
-            screenY: 0,
-            clientX: 0,
-            clientY: 0,
-            pageX: 0,
-            pageY: 0,
-            ctrlKey: 0,
-            shiftKey: 0,
-            altKey: 0,
-            metaKey: 0,
-            getModifierState: getEventModifierState,
-            button: 0,
-            buttons: 0,
-            relatedTarget: function(event) {
-              if (event.relatedTarget === void 0)
-                return event.fromElement === event.srcElement ? event.toElement : event.fromElement;
-              return event.relatedTarget;
-            },
-            movementX: function(event) {
-              if ("movementX" in event) {
-                return event.movementX;
-              }
-              updateMouseMovementPolyfillState(event);
-              return lastMovementX;
-            },
-            movementY: function(event) {
-              if ("movementY" in event) {
-                return event.movementY;
-              }
-              return lastMovementY;
+          var MouseEventInterface = _assign({}, UIEventInterface, { screenX: 0, screenY: 0, clientX: 0, clientY: 0, pageX: 0, pageY: 0, ctrlKey: 0, shiftKey: 0, altKey: 0, metaKey: 0, getModifierState: getEventModifierState, button: 0, buttons: 0, relatedTarget: function(event) {
+            if (event.relatedTarget === void 0)
+              return event.fromElement === event.srcElement ? event.toElement : event.fromElement;
+            return event.relatedTarget;
+          }, movementX: function(event) {
+            if ("movementX" in event) {
+              return event.movementX;
             }
-          });
+            updateMouseMovementPolyfillState(event);
+            return lastMovementX;
+          }, movementY: function(event) {
+            if ("movementY" in event) {
+              return event.movementY;
+            }
+            return lastMovementY;
+          } });
           var SyntheticMouseEvent = createSyntheticEvent(MouseEventInterface);
-          var DragEventInterface = _assign({}, MouseEventInterface, {
-            dataTransfer: 0
-          });
+          var DragEventInterface = _assign({}, MouseEventInterface, { dataTransfer: 0 });
           var SyntheticDragEvent = createSyntheticEvent(DragEventInterface);
-          var FocusEventInterface = _assign({}, UIEventInterface, {
-            relatedTarget: 0
-          });
+          var FocusEventInterface = _assign({}, UIEventInterface, { relatedTarget: 0 });
           var SyntheticFocusEvent = createSyntheticEvent(FocusEventInterface);
-          var AnimationEventInterface = _assign({}, EventInterface, {
-            animationName: 0,
-            elapsedTime: 0,
-            pseudoElement: 0
-          });
+          var AnimationEventInterface = _assign({}, EventInterface, { animationName: 0, elapsedTime: 0, pseudoElement: 0 });
           var SyntheticAnimationEvent = createSyntheticEvent(AnimationEventInterface);
-          var ClipboardEventInterface = _assign({}, EventInterface, {
-            clipboardData: function(event) {
-              return "clipboardData" in event ? event.clipboardData : window.clipboardData;
-            }
-          });
+          var ClipboardEventInterface = _assign({}, EventInterface, { clipboardData: function(event) {
+            return "clipboardData" in event ? event.clipboardData : window.clipboardData;
+          } });
           var SyntheticClipboardEvent = createSyntheticEvent(ClipboardEventInterface);
-          var CompositionEventInterface = _assign({}, EventInterface, {
-            data: 0
-          });
+          var CompositionEventInterface = _assign({}, EventInterface, { data: 0 });
           var SyntheticCompositionEvent = createSyntheticEvent(CompositionEventInterface);
           var SyntheticInputEvent = SyntheticCompositionEvent;
-          var normalizeKey = {
-            Esc: "Escape",
-            Spacebar: " ",
-            Left: "ArrowLeft",
-            Up: "ArrowUp",
-            Right: "ArrowRight",
-            Down: "ArrowDown",
-            Del: "Delete",
-            Win: "OS",
-            Menu: "ContextMenu",
-            Apps: "ContextMenu",
-            Scroll: "ScrollLock",
-            MozPrintableKey: "Unidentified"
-          };
-          var translateToKey = {
-            "8": "Backspace",
-            "9": "Tab",
-            "12": "Clear",
-            "13": "Enter",
-            "16": "Shift",
-            "17": "Control",
-            "18": "Alt",
-            "19": "Pause",
-            "20": "CapsLock",
-            "27": "Escape",
-            "32": " ",
-            "33": "PageUp",
-            "34": "PageDown",
-            "35": "End",
-            "36": "Home",
-            "37": "ArrowLeft",
-            "38": "ArrowUp",
-            "39": "ArrowRight",
-            "40": "ArrowDown",
-            "45": "Insert",
-            "46": "Delete",
-            "112": "F1",
-            "113": "F2",
-            "114": "F3",
-            "115": "F4",
-            "116": "F5",
-            "117": "F6",
-            "118": "F7",
-            "119": "F8",
-            "120": "F9",
-            "121": "F10",
-            "122": "F11",
-            "123": "F12",
-            "144": "NumLock",
-            "145": "ScrollLock",
-            "224": "Meta"
-          };
+          var normalizeKey = { Esc: "Escape", Spacebar: " ", Left: "ArrowLeft", Up: "ArrowUp", Right: "ArrowRight", Down: "ArrowDown", Del: "Delete", Win: "OS", Menu: "ContextMenu", Apps: "ContextMenu", Scroll: "ScrollLock", MozPrintableKey: "Unidentified" };
+          var translateToKey = { "8": "Backspace", "9": "Tab", "12": "Clear", "13": "Enter", "16": "Shift", "17": "Control", "18": "Alt", "19": "Pause", "20": "CapsLock", "27": "Escape", "32": " ", "33": "PageUp", "34": "PageDown", "35": "End", "36": "Home", "37": "ArrowLeft", "38": "ArrowUp", "39": "ArrowRight", "40": "ArrowDown", "45": "Insert", "46": "Delete", "112": "F1", "113": "F2", "114": "F3", "115": "F4", "116": "F5", "117": "F6", "118": "F7", "119": "F8", "120": "F9", "121": "F10", "122": "F11", "123": "F12", "144": "NumLock", "145": "ScrollLock", "224": "Meta" };
           function getEventKey(nativeEvent) {
             if (nativeEvent.key) {
               var key = normalizeKey[nativeEvent.key] || nativeEvent.key;
@@ -7018,12 +6775,7 @@
             }
             return "";
           }
-          var modifierKeyToProp = {
-            Alt: "altKey",
-            Control: "ctrlKey",
-            Meta: "metaKey",
-            Shift: "shiftKey"
-          };
+          var modifierKeyToProp = { Alt: "altKey", Control: "ctrlKey", Meta: "metaKey", Shift: "shiftKey" };
           function modifierStateGetter(keyArg) {
             var syntheticEvent = this;
             var nativeEvent = syntheticEvent.nativeEvent;
@@ -7070,35 +6822,11 @@
             }
           });
           var SyntheticKeyboardEvent = createSyntheticEvent(KeyboardEventInterface);
-          var PointerEventInterface = _assign({}, MouseEventInterface, {
-            pointerId: 0,
-            width: 0,
-            height: 0,
-            pressure: 0,
-            tangentialPressure: 0,
-            tiltX: 0,
-            tiltY: 0,
-            twist: 0,
-            pointerType: 0,
-            isPrimary: 0
-          });
+          var PointerEventInterface = _assign({}, MouseEventInterface, { pointerId: 0, width: 0, height: 0, pressure: 0, tangentialPressure: 0, tiltX: 0, tiltY: 0, twist: 0, pointerType: 0, isPrimary: 0 });
           var SyntheticPointerEvent = createSyntheticEvent(PointerEventInterface);
-          var TouchEventInterface = _assign({}, UIEventInterface, {
-            touches: 0,
-            targetTouches: 0,
-            changedTouches: 0,
-            altKey: 0,
-            metaKey: 0,
-            ctrlKey: 0,
-            shiftKey: 0,
-            getModifierState: getEventModifierState
-          });
+          var TouchEventInterface = _assign({}, UIEventInterface, { touches: 0, targetTouches: 0, changedTouches: 0, altKey: 0, metaKey: 0, ctrlKey: 0, shiftKey: 0, getModifierState: getEventModifierState });
           var SyntheticTouchEvent = createSyntheticEvent(TouchEventInterface);
-          var TransitionEventInterface = _assign({}, EventInterface, {
-            propertyName: 0,
-            elapsedTime: 0,
-            pseudoElement: 0
-          });
+          var TransitionEventInterface = _assign({}, EventInterface, { propertyName: 0, elapsedTime: 0, pseudoElement: 0 });
           var SyntheticTransitionEvent = createSyntheticEvent(TransitionEventInterface);
           var WheelEventInterface = _assign({}, MouseEventInterface, {
             deltaX: function(event) {
@@ -7197,10 +6925,7 @@
             var listeners = accumulateTwoPhaseListeners(targetInst, eventType);
             if (listeners.length > 0) {
               var event = new SyntheticCompositionEvent(eventType, domEventName, null, nativeEvent, nativeEventTarget);
-              dispatchQueue.push({
-                event,
-                listeners
-              });
+              dispatchQueue.push({ event, listeners });
               if (fallbackData) {
                 event.data = fallbackData;
               } else {
@@ -7273,10 +6998,7 @@
             var listeners = accumulateTwoPhaseListeners(targetInst, "onBeforeInput");
             if (listeners.length > 0) {
               var event = new SyntheticInputEvent("onBeforeInput", "beforeinput", null, nativeEvent, nativeEventTarget);
-              dispatchQueue.push({
-                event,
-                listeners
-              });
+              dispatchQueue.push({ event, listeners });
               event.data = chars;
             }
           }
@@ -7284,23 +7006,7 @@
             extractCompositionEvent(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget);
             extractBeforeInputEvent(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget);
           }
-          var supportedInputTypes = {
-            color: true,
-            date: true,
-            datetime: true,
-            "datetime-local": true,
-            email: true,
-            month: true,
-            number: true,
-            password: true,
-            range: true,
-            search: true,
-            tel: true,
-            text: true,
-            time: true,
-            url: true,
-            week: true
-          };
+          var supportedInputTypes = { color: true, date: true, datetime: true, "datetime-local": true, email: true, month: true, number: true, password: true, range: true, search: true, tel: true, text: true, time: true, url: true, week: true };
           function isTextInputElement(elem) {
             var nodeName = elem && elem.nodeName && elem.nodeName.toLowerCase();
             if (nodeName === "input") {
@@ -7332,10 +7038,7 @@
             var listeners = accumulateTwoPhaseListeners(inst, "onChange");
             if (listeners.length > 0) {
               var event = new SyntheticEvent("onChange", "change", null, nativeEvent, target);
-              dispatchQueue.push({
-                event,
-                listeners
-              });
+              dispatchQueue.push({ event, listeners });
             }
           }
           var activeElement = null;
@@ -7574,10 +7277,7 @@
               if (node.nodeType === TEXT_NODE) {
                 nodeEnd = nodeStart + node.textContent.length;
                 if (nodeStart <= offset && nodeEnd >= offset) {
-                  return {
-                    node,
-                    offset: offset - nodeStart
-                  };
+                  return { node, offset: offset - nodeStart };
                 }
                 nodeStart = nodeEnd;
               }
@@ -7648,10 +7348,7 @@
             if (start === -1 || end === -1) {
               return null;
             }
-            return {
-              start,
-              end
-            };
+            return { start, end };
           }
           function setOffsets(node, offsets) {
             var doc = node.ownerDocument || document;
@@ -7735,10 +7432,7 @@
           }
           function getSelectionInformation() {
             var focusedElem = getActiveElementDeep();
-            return {
-              focusedElem,
-              selectionRange: hasSelectionCapabilities(focusedElem) ? getSelection(focusedElem) : null
-            };
+            return { focusedElem, selectionRange: hasSelectionCapabilities(focusedElem) ? getSelection(focusedElem) : null };
           }
           function restoreSelection(priorSelectionInformation) {
             var curFocusedElem = getActiveElementDeep();
@@ -7752,11 +7446,7 @@
               var ancestor = priorFocusedElem;
               while (ancestor = ancestor.parentNode) {
                 if (ancestor.nodeType === ELEMENT_NODE) {
-                  ancestors.push({
-                    element: ancestor,
-                    left: ancestor.scrollLeft,
-                    top: ancestor.scrollTop
-                  });
+                  ancestors.push({ element: ancestor, left: ancestor.scrollLeft, top: ancestor.scrollTop });
                 }
               }
               if (typeof priorFocusedElem.focus === "function") {
@@ -7772,17 +7462,11 @@
           function getSelection(input) {
             var selection;
             if ("selectionStart" in input) {
-              selection = {
-                start: input.selectionStart,
-                end: input.selectionEnd
-              };
+              selection = { start: input.selectionStart, end: input.selectionEnd };
             } else {
               selection = getOffsets(input);
             }
-            return selection || {
-              start: 0,
-              end: 0
-            };
+            return selection || { start: 0, end: 0 };
           }
           function setSelection(input, offsets) {
             var start = offsets.start;
@@ -7807,19 +7491,11 @@
           var mouseDown = false;
           function getSelection$1(node) {
             if ("selectionStart" in node && hasSelectionCapabilities(node)) {
-              return {
-                start: node.selectionStart,
-                end: node.selectionEnd
-              };
+              return { start: node.selectionStart, end: node.selectionEnd };
             } else {
               var win = node.ownerDocument && node.ownerDocument.defaultView || window;
               var selection = win.getSelection();
-              return {
-                anchorNode: selection.anchorNode,
-                anchorOffset: selection.anchorOffset,
-                focusNode: selection.focusNode,
-                focusOffset: selection.focusOffset
-              };
+              return { anchorNode: selection.anchorNode, anchorOffset: selection.anchorOffset, focusNode: selection.focusNode, focusOffset: selection.focusOffset };
             }
           }
           function getEventTargetDocument(eventTarget) {
@@ -7836,10 +7512,7 @@
               var listeners = accumulateTwoPhaseListeners(activeElementInst$1, "onSelect");
               if (listeners.length > 0) {
                 var event = new SyntheticEvent("onSelect", "select", null, nativeEvent, nativeEventTarget);
-                dispatchQueue.push({
-                  event,
-                  listeners
-                });
+                dispatchQueue.push({ event, listeners });
                 event.target = activeElement$1;
               }
             }
@@ -7971,10 +7644,7 @@
               var _listeners = accumulateSinglePhaseListeners(targetInst, reactName, nativeEvent.type, inCapturePhase, accumulateTargetOnly);
               if (_listeners.length > 0) {
                 var _event = new SyntheticEventCtor(reactName, reactEventType, null, nativeEvent, nativeEventTarget);
-                dispatchQueue.push({
-                  event: _event,
-                  listeners: _listeners
-                });
+                dispatchQueue.push({ event: _event, listeners: _listeners });
               }
             }
           }
@@ -8163,11 +7833,7 @@
             });
           }
           function createDispatchListener(instance, listener, currentTarget) {
-            return {
-              instance,
-              listener,
-              currentTarget
-            };
+            return { instance, listener, currentTarget };
           }
           function accumulateSinglePhaseListeners(targetFiber, reactName, nativeEventType, inCapturePhase, accumulateTargetOnly) {
             var captureName = reactName !== null ? reactName + "Capture" : null;
@@ -8284,10 +7950,7 @@
               instance = instance.return;
             }
             if (listeners.length !== 0) {
-              dispatchQueue.push({
-                event,
-                listeners
-              });
+              dispatchQueue.push({ event, listeners });
             }
           }
           function accumulateEnterLeaveTwoPhaseListeners(dispatchQueue, leaveEvent, enterEvent, from, to) {
@@ -8329,10 +7992,7 @@
             validatePropertiesInDevelopment = function(type, props) {
               validateProperties(type, props);
               validateProperties$1(type, props);
-              validateProperties$2(type, props, {
-                registrationNameDependencies,
-                possibleRegistrationNames
-              });
+              validateProperties$2(type, props, { registrationNameDependencies, possibleRegistrationNames });
             };
             canDiffStyleForHydrationWarning = canUseDOM && !document.documentMode;
             var NORMALIZE_NEWLINES_REGEX = /\r\n?/g;
@@ -8457,7 +8117,7 @@
               }
             }
           }
-          function createElement3(type, props, rootContainerElement, parentNamespace) {
+          function createElement2(type, props, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
             var domElement;
@@ -8478,9 +8138,7 @@
                 var firstChild = div.firstChild;
                 domElement = div.removeChild(firstChild);
               } else if (typeof props.is === "string") {
-                domElement = ownerDocument.createElement(type, {
-                  is: props.is
-                });
+                domElement = ownerDocument.createElement(type, { is: props.is });
               } else {
                 domElement = ownerDocument.createElement(type);
                 if (type === "select") {
@@ -9038,21 +8696,10 @@
             ];
             var buttonScopeTags = inScopeTags.concat(["button"]);
             var impliedEndTags = ["dd", "dt", "li", "option", "optgroup", "p", "rp", "rt"];
-            var emptyAncestorInfo = {
-              current: null,
-              formTag: null,
-              aTagInScope: null,
-              buttonTagInScope: null,
-              nobrTagInScope: null,
-              pTagInButtonScope: null,
-              listItemTagAutoclosing: null,
-              dlItemTagAutoclosing: null
-            };
+            var emptyAncestorInfo = { current: null, formTag: null, aTagInScope: null, buttonTagInScope: null, nobrTagInScope: null, pTagInButtonScope: null, listItemTagAutoclosing: null, dlItemTagAutoclosing: null };
             updatedAncestorInfo = function(oldInfo, tag) {
               var ancestorInfo = _assign({}, oldInfo || emptyAncestorInfo);
-              var info = {
-                tag
-              };
+              var info = { tag };
               if (inScopeTags.indexOf(tag) !== -1) {
                 ancestorInfo.aTagInScope = null;
                 ancestorInfo.buttonTagInScope = null;
@@ -9289,10 +8936,7 @@
             {
               var validatedTag = type.toLowerCase();
               var ancestorInfo = updatedAncestorInfo(null, validatedTag);
-              return {
-                namespace,
-                ancestorInfo
-              };
+              return { namespace, ancestorInfo };
             }
           }
           function getChildHostContext(parentHostContext, type, rootContainerInstance) {
@@ -9300,10 +8944,7 @@
               var parentHostContextDev = parentHostContext;
               var namespace = getChildNamespace(parentHostContextDev.namespace, type);
               var ancestorInfo = updatedAncestorInfo(parentHostContextDev.ancestorInfo, type);
-              return {
-                namespace,
-                ancestorInfo
-              };
+              return { namespace, ancestorInfo };
             }
           }
           function getPublicInstance(instance) {
@@ -9334,7 +8975,7 @@
               }
               parentNamespace = hostContextDev.namespace;
             }
-            var domElement = createElement3(type, props, rootContainerInstance, parentNamespace);
+            var domElement = createElement2(type, props, rootContainerInstance, parentNamespace);
             precacheFiberNode(internalInstanceHandle, domElement);
             updateFiberProps(domElement, props);
             return domElement;
@@ -9607,26 +9248,19 @@
           var clientId = 0;
           function makeClientIdInDEV(warnOnAccessInDEV) {
             var id = "r:" + (clientId++).toString(36);
-            return {
-              toString: function() {
-                warnOnAccessInDEV();
-                return id;
-              },
-              valueOf: function() {
-                warnOnAccessInDEV();
-                return id;
-              }
-            };
+            return { toString: function() {
+              warnOnAccessInDEV();
+              return id;
+            }, valueOf: function() {
+              warnOnAccessInDEV();
+              return id;
+            } };
           }
           function isOpaqueHydratingObject(value) {
             return value !== null && typeof value === "object" && value.$$typeof === REACT_OPAQUE_ID_TYPE;
           }
           function makeOpaqueHydratingObject(attemptToReadValue) {
-            return {
-              $$typeof: REACT_OPAQUE_ID_TYPE,
-              toString: attemptToReadValue,
-              valueOf: attemptToReadValue
-            };
+            return { $$typeof: REACT_OPAQUE_ID_TYPE, toString: attemptToReadValue, valueOf: attemptToReadValue };
           }
           function preparePortalMount(portalInstance) {
             {
@@ -9762,9 +9396,7 @@
           }
           var index = -1;
           function createCursor(defaultValue) {
-            return {
-              current: defaultValue
-            };
+            return { current: defaultValue };
           }
           function pop(cursor, fiber) {
             if (index < 0) {
@@ -10179,18 +9811,12 @@
           function requestCurrentTransition() {
             return ReactCurrentBatchConfig.transition;
           }
-          var ReactStrictModeWarnings = {
-            recordUnsafeLifecycleWarnings: function(fiber, instance) {
-            },
-            flushPendingUnsafeLifecycleWarnings: function() {
-            },
-            recordLegacyContextWarning: function(fiber, instance) {
-            },
-            flushLegacyContextWarning: function() {
-            },
-            discardPendingWarnings: function() {
-            }
-          };
+          var ReactStrictModeWarnings = { recordUnsafeLifecycleWarnings: function(fiber, instance) {
+          }, flushPendingUnsafeLifecycleWarnings: function() {
+          }, recordLegacyContextWarning: function(fiber, instance) {
+          }, flushLegacyContextWarning: function() {
+          }, discardPendingWarnings: function() {
+          } };
           {
             var findStrictRoot = function(fiber) {
               var maybeStrictRoot = null;
@@ -10544,11 +10170,7 @@
               } else {
                 resolvedObservedBits = observedBits;
               }
-              var contextItem = {
-                context,
-                observedBits: resolvedObservedBits,
-                next: null
-              };
+              var contextItem = { context, observedBits: resolvedObservedBits, next: null };
               if (lastContextDependency === null) {
                 if (!(currentlyRenderingFiber !== null)) {
                   {
@@ -10556,11 +10178,7 @@
                   }
                 }
                 lastContextDependency = contextItem;
-                currentlyRenderingFiber.dependencies = {
-                  lanes: NoLanes,
-                  firstContext: contextItem,
-                  responders: null
-                };
+                currentlyRenderingFiber.dependencies = { lanes: NoLanes, firstContext: contextItem, responders: null };
               } else {
                 lastContextDependency = lastContextDependency.next = contextItem;
               }
@@ -10579,40 +10197,19 @@
             currentlyProcessingQueue = null;
           }
           function initializeUpdateQueue(fiber) {
-            var queue = {
-              baseState: fiber.memoizedState,
-              firstBaseUpdate: null,
-              lastBaseUpdate: null,
-              shared: {
-                pending: null
-              },
-              effects: null
-            };
+            var queue = { baseState: fiber.memoizedState, firstBaseUpdate: null, lastBaseUpdate: null, shared: { pending: null }, effects: null };
             fiber.updateQueue = queue;
           }
           function cloneUpdateQueue(current2, workInProgress2) {
             var queue = workInProgress2.updateQueue;
             var currentQueue = current2.updateQueue;
             if (queue === currentQueue) {
-              var clone = {
-                baseState: currentQueue.baseState,
-                firstBaseUpdate: currentQueue.firstBaseUpdate,
-                lastBaseUpdate: currentQueue.lastBaseUpdate,
-                shared: currentQueue.shared,
-                effects: currentQueue.effects
-              };
+              var clone = { baseState: currentQueue.baseState, firstBaseUpdate: currentQueue.firstBaseUpdate, lastBaseUpdate: currentQueue.lastBaseUpdate, shared: currentQueue.shared, effects: currentQueue.effects };
               workInProgress2.updateQueue = clone;
             }
           }
           function createUpdate(eventTime, lane) {
-            var update = {
-              eventTime,
-              lane,
-              tag: UpdateState,
-              payload: null,
-              callback: null,
-              next: null
-            };
+            var update = { eventTime, lane, tag: UpdateState, payload: null, callback: null, next: null };
             return update;
           }
           function enqueueUpdate(fiber, update) {
@@ -10648,14 +10245,7 @@
                 if (firstBaseUpdate !== null) {
                   var update = firstBaseUpdate;
                   do {
-                    var clone = {
-                      eventTime: update.eventTime,
-                      lane: update.lane,
-                      tag: update.tag,
-                      payload: update.payload,
-                      callback: update.callback,
-                      next: null
-                    };
+                    var clone = { eventTime: update.eventTime, lane: update.lane, tag: update.tag, payload: update.payload, callback: update.callback, next: null };
                     if (newLast === null) {
                       newFirst = newLast = clone;
                     } else {
@@ -10673,13 +10263,7 @@
                 } else {
                   newFirst = newLast = capturedUpdate;
                 }
-                queue = {
-                  baseState: currentQueue.baseState,
-                  firstBaseUpdate: newFirst,
-                  lastBaseUpdate: newLast,
-                  shared: currentQueue.shared,
-                  effects: currentQueue.effects
-                };
+                queue = { baseState: currentQueue.baseState, firstBaseUpdate: newFirst, lastBaseUpdate: newLast, shared: currentQueue.shared, effects: currentQueue.effects };
                 workInProgress2.updateQueue = queue;
                 return;
               }
@@ -10798,14 +10382,7 @@
                 var updateLane = update.lane;
                 var updateEventTime = update.eventTime;
                 if (!isSubsetOfLanes(renderLanes2, updateLane)) {
-                  var clone = {
-                    eventTime: updateEventTime,
-                    lane: updateLane,
-                    tag: update.tag,
-                    payload: update.payload,
-                    callback: update.callback,
-                    next: null
-                  };
+                  var clone = { eventTime: updateEventTime, lane: updateLane, tag: update.tag, payload: update.payload, callback: update.callback, next: null };
                   if (newLastBaseUpdate === null) {
                     newFirstBaseUpdate = newLastBaseUpdate = clone;
                     newBaseState = newState;
@@ -10936,16 +10513,13 @@
                 }
               }
             };
-            Object.defineProperty(fakeInternalInstance, "_processChildContext", {
-              enumerable: false,
-              value: function() {
+            Object.defineProperty(fakeInternalInstance, "_processChildContext", { enumerable: false, value: function() {
+              {
                 {
-                  {
-                    throw Error("_processChildContext is not available in React 16+. This likely means you have multiple copies of React and are attempting to nest a React 15 tree inside a React 16 tree using unstable_renderSubtreeIntoContainer, which isn't supported. Try to make sure you have only one copy of React (and ideally, switch to ReactDOM.createPortal).");
-                  }
+                  throw Error("_processChildContext is not available in React 16+. This likely means you have multiple copies of React and are attempting to nest a React 15 tree inside a React 16 tree using unstable_renderSubtreeIntoContainer, which isn't supported. Try to make sure you have only one copy of React (and ideally, switch to ReactDOM.createPortal).");
                 }
               }
-            });
+            } });
             Object.freeze(fakeInternalInstance);
           }
           function applyDerivedStateFromProps(workInProgress2, ctor, getDerivedStateFromProps, nextProps) {
@@ -10971,55 +10545,50 @@
               updateQueue.baseState = memoizedState;
             }
           }
-          var classComponentUpdater = {
-            isMounted,
-            enqueueSetState: function(inst, payload, callback) {
-              var fiber = get(inst);
-              var eventTime = requestEventTime();
-              var lane = requestUpdateLane(fiber);
-              var update = createUpdate(eventTime, lane);
-              update.payload = payload;
-              if (callback !== void 0 && callback !== null) {
-                {
-                  warnOnInvalidCallback(callback, "setState");
-                }
-                update.callback = callback;
+          var classComponentUpdater = { isMounted, enqueueSetState: function(inst, payload, callback) {
+            var fiber = get(inst);
+            var eventTime = requestEventTime();
+            var lane = requestUpdateLane(fiber);
+            var update = createUpdate(eventTime, lane);
+            update.payload = payload;
+            if (callback !== void 0 && callback !== null) {
+              {
+                warnOnInvalidCallback(callback, "setState");
               }
-              enqueueUpdate(fiber, update);
-              scheduleUpdateOnFiber(fiber, lane, eventTime);
-            },
-            enqueueReplaceState: function(inst, payload, callback) {
-              var fiber = get(inst);
-              var eventTime = requestEventTime();
-              var lane = requestUpdateLane(fiber);
-              var update = createUpdate(eventTime, lane);
-              update.tag = ReplaceState;
-              update.payload = payload;
-              if (callback !== void 0 && callback !== null) {
-                {
-                  warnOnInvalidCallback(callback, "replaceState");
-                }
-                update.callback = callback;
-              }
-              enqueueUpdate(fiber, update);
-              scheduleUpdateOnFiber(fiber, lane, eventTime);
-            },
-            enqueueForceUpdate: function(inst, callback) {
-              var fiber = get(inst);
-              var eventTime = requestEventTime();
-              var lane = requestUpdateLane(fiber);
-              var update = createUpdate(eventTime, lane);
-              update.tag = ForceUpdate;
-              if (callback !== void 0 && callback !== null) {
-                {
-                  warnOnInvalidCallback(callback, "forceUpdate");
-                }
-                update.callback = callback;
-              }
-              enqueueUpdate(fiber, update);
-              scheduleUpdateOnFiber(fiber, lane, eventTime);
+              update.callback = callback;
             }
-          };
+            enqueueUpdate(fiber, update);
+            scheduleUpdateOnFiber(fiber, lane, eventTime);
+          }, enqueueReplaceState: function(inst, payload, callback) {
+            var fiber = get(inst);
+            var eventTime = requestEventTime();
+            var lane = requestUpdateLane(fiber);
+            var update = createUpdate(eventTime, lane);
+            update.tag = ReplaceState;
+            update.payload = payload;
+            if (callback !== void 0 && callback !== null) {
+              {
+                warnOnInvalidCallback(callback, "replaceState");
+              }
+              update.callback = callback;
+            }
+            enqueueUpdate(fiber, update);
+            scheduleUpdateOnFiber(fiber, lane, eventTime);
+          }, enqueueForceUpdate: function(inst, callback) {
+            var fiber = get(inst);
+            var eventTime = requestEventTime();
+            var lane = requestUpdateLane(fiber);
+            var update = createUpdate(eventTime, lane);
+            update.tag = ForceUpdate;
+            if (callback !== void 0 && callback !== null) {
+              {
+                warnOnInvalidCallback(callback, "forceUpdate");
+              }
+              update.callback = callback;
+            }
+            enqueueUpdate(fiber, update);
+            scheduleUpdateOnFiber(fiber, lane, eventTime);
+          } };
           function checkShouldComponentUpdate(workInProgress2, ctor, oldProps, newProps, oldState, newState, nextContext) {
             var instance = workInProgress2.stateNode;
             if (typeof instance.shouldComponentUpdate === "function") {
@@ -12780,13 +12349,7 @@
             didScheduleRenderPhaseUpdateDuringThisPass = false;
           }
           function mountWorkInProgressHook() {
-            var hook = {
-              memoizedState: null,
-              baseState: null,
-              baseQueue: null,
-              queue: null,
-              next: null
-            };
+            var hook = { memoizedState: null, baseState: null, baseQueue: null, queue: null, next: null };
             if (workInProgressHook === null) {
               currentlyRenderingFiber$1.memoizedState = workInProgressHook = hook;
             } else {
@@ -12823,13 +12386,7 @@
                 }
               }
               currentHook = nextCurrentHook;
-              var newHook = {
-                memoizedState: currentHook.memoizedState,
-                baseState: currentHook.baseState,
-                baseQueue: currentHook.baseQueue,
-                queue: currentHook.queue,
-                next: null
-              };
+              var newHook = { memoizedState: currentHook.memoizedState, baseState: currentHook.baseState, baseQueue: currentHook.baseQueue, queue: currentHook.queue, next: null };
               if (workInProgressHook === null) {
                 currentlyRenderingFiber$1.memoizedState = workInProgressHook = newHook;
               } else {
@@ -12839,9 +12396,7 @@
             return workInProgressHook;
           }
           function createFunctionComponentUpdateQueue() {
-            return {
-              lastEffect: null
-            };
+            return { lastEffect: null };
           }
           function basicStateReducer(state, action) {
             return typeof action === "function" ? action(state) : action;
@@ -12855,12 +12410,7 @@
               initialState = initialArg;
             }
             hook.memoizedState = hook.baseState = initialState;
-            var queue = hook.queue = {
-              pending: null,
-              dispatch: null,
-              lastRenderedReducer: reducer,
-              lastRenderedState: initialState
-            };
+            var queue = hook.queue = { pending: null, dispatch: null, lastRenderedReducer: reducer, lastRenderedState: initialState };
             var dispatch = queue.dispatch = dispatchAction.bind(null, currentlyRenderingFiber$1, queue);
             return [hook.memoizedState, dispatch];
           }
@@ -12901,13 +12451,7 @@
               do {
                 var updateLane = update.lane;
                 if (!isSubsetOfLanes(renderLanes, updateLane)) {
-                  var clone = {
-                    lane: updateLane,
-                    action: update.action,
-                    eagerReducer: update.eagerReducer,
-                    eagerState: update.eagerState,
-                    next: null
-                  };
+                  var clone = { lane: updateLane, action: update.action, eagerReducer: update.eagerReducer, eagerState: update.eagerState, next: null };
                   if (newBaseQueueLast === null) {
                     newBaseQueueFirst = newBaseQueueLast = clone;
                     newBaseState = newState;
@@ -13038,11 +12582,7 @@
             var prevSource = memoizedState.source;
             var prevSubscribe = memoizedState.subscribe;
             var fiber = currentlyRenderingFiber$1;
-            hook.memoizedState = {
-              refs,
-              source,
-              subscribe
-            };
+            hook.memoizedState = { refs, source, subscribe };
             dispatcher.useEffect(function() {
               refs.getSnapshot = getSnapshot;
               refs.setSnapshot = setSnapshot;
@@ -13085,12 +12625,7 @@
               return unsubscribe;
             }, [source, subscribe]);
             if (!objectIs(prevGetSnapshot, getSnapshot) || !objectIs(prevSource, source) || !objectIs(prevSubscribe, subscribe)) {
-              var newQueue = {
-                pending: null,
-                dispatch: null,
-                lastRenderedReducer: basicStateReducer,
-                lastRenderedState: snapshot
-              };
+              var newQueue = { pending: null, dispatch: null, lastRenderedReducer: basicStateReducer, lastRenderedState: snapshot };
               newQueue.dispatch = setSnapshot = dispatchAction.bind(null, currentlyRenderingFiber$1, newQueue);
               stateHook.queue = newQueue;
               stateHook.baseQueue = null;
@@ -13101,14 +12636,7 @@
           }
           function mountMutableSource(source, getSnapshot, subscribe) {
             var hook = mountWorkInProgressHook();
-            hook.memoizedState = {
-              refs: {
-                getSnapshot,
-                setSnapshot: null
-              },
-              source,
-              subscribe
-            };
+            hook.memoizedState = { refs: { getSnapshot, setSnapshot: null }, source, subscribe };
             return useMutableSource(hook, source, getSnapshot, subscribe);
           }
           function updateMutableSource(source, getSnapshot, subscribe) {
@@ -13121,12 +12649,7 @@
               initialState = initialState();
             }
             hook.memoizedState = hook.baseState = initialState;
-            var queue = hook.queue = {
-              pending: null,
-              dispatch: null,
-              lastRenderedReducer: basicStateReducer,
-              lastRenderedState: initialState
-            };
+            var queue = hook.queue = { pending: null, dispatch: null, lastRenderedReducer: basicStateReducer, lastRenderedState: initialState };
             var dispatch = queue.dispatch = dispatchAction.bind(null, currentlyRenderingFiber$1, queue);
             return [hook.memoizedState, dispatch];
           }
@@ -13164,9 +12687,7 @@
           }
           function mountRef(initialValue) {
             var hook = mountWorkInProgressHook();
-            var ref = {
-              current: initialValue
-            };
+            var ref = { current: initialValue };
             {
               Object.seal(ref);
             }
@@ -13452,13 +12973,7 @@
             }
             var eventTime = requestEventTime();
             var lane = requestUpdateLane(fiber);
-            var update = {
-              lane,
-              action,
-              eagerReducer: null,
-              eagerState: null,
-              next: null
-            };
+            var update = { lane, action, eagerReducer: null, eagerState: null, next: null };
             var pending = queue.pending;
             if (pending === null) {
               update.next = update;
@@ -13504,24 +13019,7 @@
               scheduleUpdateOnFiber(fiber, lane, eventTime);
             }
           }
-          var ContextOnlyDispatcher = {
-            readContext,
-            useCallback: throwInvalidHookError,
-            useContext: throwInvalidHookError,
-            useEffect: throwInvalidHookError,
-            useImperativeHandle: throwInvalidHookError,
-            useLayoutEffect: throwInvalidHookError,
-            useMemo: throwInvalidHookError,
-            useReducer: throwInvalidHookError,
-            useRef: throwInvalidHookError,
-            useState: throwInvalidHookError,
-            useDebugValue: throwInvalidHookError,
-            useDeferredValue: throwInvalidHookError,
-            useTransition: throwInvalidHookError,
-            useMutableSource: throwInvalidHookError,
-            useOpaqueIdentifier: throwInvalidHookError,
-            unstable_isNewReconciler: enableNewReconciler
-          };
+          var ContextOnlyDispatcher = { readContext, useCallback: throwInvalidHookError, useContext: throwInvalidHookError, useEffect: throwInvalidHookError, useImperativeHandle: throwInvalidHookError, useLayoutEffect: throwInvalidHookError, useMemo: throwInvalidHookError, useReducer: throwInvalidHookError, useRef: throwInvalidHookError, useState: throwInvalidHookError, useDebugValue: throwInvalidHookError, useDeferredValue: throwInvalidHookError, useTransition: throwInvalidHookError, useMutableSource: throwInvalidHookError, useOpaqueIdentifier: throwInvalidHookError, unstable_isNewReconciler: enableNewReconciler };
           var HooksDispatcherOnMountInDEV = null;
           var HooksDispatcherOnMountWithHookTypesInDEV = null;
           var HooksDispatcherOnUpdateInDEV = null;
@@ -13536,714 +13034,595 @@
             var warnInvalidHookAccess = function() {
               error("Do not call Hooks inside useEffect(...), useMemo(...), or other built-in Hooks. You can only call Hooks at the top level of your React function. For more information, see https://reactjs.org/link/rules-of-hooks");
             };
-            HooksDispatcherOnMountInDEV = {
-              readContext: function(context, observedBits) {
-                return readContext(context, observedBits);
-              },
-              useCallback: function(callback, deps) {
-                currentHookNameInDev = "useCallback";
-                mountHookTypesDev();
-                checkDepsAreArrayDev(deps);
-                return mountCallback(callback, deps);
-              },
-              useContext: function(context, observedBits) {
-                currentHookNameInDev = "useContext";
-                mountHookTypesDev();
-                return readContext(context, observedBits);
-              },
-              useEffect: function(create, deps) {
-                currentHookNameInDev = "useEffect";
-                mountHookTypesDev();
-                checkDepsAreArrayDev(deps);
-                return mountEffect(create, deps);
-              },
-              useImperativeHandle: function(ref, create, deps) {
-                currentHookNameInDev = "useImperativeHandle";
-                mountHookTypesDev();
-                checkDepsAreArrayDev(deps);
-                return mountImperativeHandle(ref, create, deps);
-              },
-              useLayoutEffect: function(create, deps) {
-                currentHookNameInDev = "useLayoutEffect";
-                mountHookTypesDev();
-                checkDepsAreArrayDev(deps);
-                return mountLayoutEffect(create, deps);
-              },
-              useMemo: function(create, deps) {
-                currentHookNameInDev = "useMemo";
-                mountHookTypesDev();
-                checkDepsAreArrayDev(deps);
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountMemo(create, deps);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useReducer: function(reducer, initialArg, init) {
-                currentHookNameInDev = "useReducer";
-                mountHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountReducer(reducer, initialArg, init);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useRef: function(initialValue) {
-                currentHookNameInDev = "useRef";
-                mountHookTypesDev();
-                return mountRef(initialValue);
-              },
-              useState: function(initialState) {
-                currentHookNameInDev = "useState";
-                mountHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountState(initialState);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useDebugValue: function(value, formatterFn) {
-                currentHookNameInDev = "useDebugValue";
-                mountHookTypesDev();
-                return mountDebugValue();
-              },
-              useDeferredValue: function(value) {
-                currentHookNameInDev = "useDeferredValue";
-                mountHookTypesDev();
-                return mountDeferredValue(value);
-              },
-              useTransition: function() {
-                currentHookNameInDev = "useTransition";
-                mountHookTypesDev();
-                return mountTransition();
-              },
-              useMutableSource: function(source, getSnapshot, subscribe) {
-                currentHookNameInDev = "useMutableSource";
-                mountHookTypesDev();
-                return mountMutableSource(source, getSnapshot, subscribe);
-              },
-              useOpaqueIdentifier: function() {
-                currentHookNameInDev = "useOpaqueIdentifier";
-                mountHookTypesDev();
-                return mountOpaqueIdentifier();
-              },
-              unstable_isNewReconciler: enableNewReconciler
-            };
-            HooksDispatcherOnMountWithHookTypesInDEV = {
-              readContext: function(context, observedBits) {
-                return readContext(context, observedBits);
-              },
-              useCallback: function(callback, deps) {
-                currentHookNameInDev = "useCallback";
-                updateHookTypesDev();
-                return mountCallback(callback, deps);
-              },
-              useContext: function(context, observedBits) {
-                currentHookNameInDev = "useContext";
-                updateHookTypesDev();
-                return readContext(context, observedBits);
-              },
-              useEffect: function(create, deps) {
-                currentHookNameInDev = "useEffect";
-                updateHookTypesDev();
-                return mountEffect(create, deps);
-              },
-              useImperativeHandle: function(ref, create, deps) {
-                currentHookNameInDev = "useImperativeHandle";
-                updateHookTypesDev();
-                return mountImperativeHandle(ref, create, deps);
-              },
-              useLayoutEffect: function(create, deps) {
-                currentHookNameInDev = "useLayoutEffect";
-                updateHookTypesDev();
-                return mountLayoutEffect(create, deps);
-              },
-              useMemo: function(create, deps) {
-                currentHookNameInDev = "useMemo";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountMemo(create, deps);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useReducer: function(reducer, initialArg, init) {
-                currentHookNameInDev = "useReducer";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountReducer(reducer, initialArg, init);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useRef: function(initialValue) {
-                currentHookNameInDev = "useRef";
-                updateHookTypesDev();
-                return mountRef(initialValue);
-              },
-              useState: function(initialState) {
-                currentHookNameInDev = "useState";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountState(initialState);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useDebugValue: function(value, formatterFn) {
-                currentHookNameInDev = "useDebugValue";
-                updateHookTypesDev();
-                return mountDebugValue();
-              },
-              useDeferredValue: function(value) {
-                currentHookNameInDev = "useDeferredValue";
-                updateHookTypesDev();
-                return mountDeferredValue(value);
-              },
-              useTransition: function() {
-                currentHookNameInDev = "useTransition";
-                updateHookTypesDev();
-                return mountTransition();
-              },
-              useMutableSource: function(source, getSnapshot, subscribe) {
-                currentHookNameInDev = "useMutableSource";
-                updateHookTypesDev();
-                return mountMutableSource(source, getSnapshot, subscribe);
-              },
-              useOpaqueIdentifier: function() {
-                currentHookNameInDev = "useOpaqueIdentifier";
-                updateHookTypesDev();
-                return mountOpaqueIdentifier();
-              },
-              unstable_isNewReconciler: enableNewReconciler
-            };
-            HooksDispatcherOnUpdateInDEV = {
-              readContext: function(context, observedBits) {
-                return readContext(context, observedBits);
-              },
-              useCallback: function(callback, deps) {
-                currentHookNameInDev = "useCallback";
-                updateHookTypesDev();
-                return updateCallback(callback, deps);
-              },
-              useContext: function(context, observedBits) {
-                currentHookNameInDev = "useContext";
-                updateHookTypesDev();
-                return readContext(context, observedBits);
-              },
-              useEffect: function(create, deps) {
-                currentHookNameInDev = "useEffect";
-                updateHookTypesDev();
-                return updateEffect(create, deps);
-              },
-              useImperativeHandle: function(ref, create, deps) {
-                currentHookNameInDev = "useImperativeHandle";
-                updateHookTypesDev();
-                return updateImperativeHandle(ref, create, deps);
-              },
-              useLayoutEffect: function(create, deps) {
-                currentHookNameInDev = "useLayoutEffect";
-                updateHookTypesDev();
-                return updateLayoutEffect(create, deps);
-              },
-              useMemo: function(create, deps) {
-                currentHookNameInDev = "useMemo";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return updateMemo(create, deps);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useReducer: function(reducer, initialArg, init) {
-                currentHookNameInDev = "useReducer";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return updateReducer(reducer, initialArg, init);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useRef: function(initialValue) {
-                currentHookNameInDev = "useRef";
-                updateHookTypesDev();
-                return updateRef();
-              },
-              useState: function(initialState) {
-                currentHookNameInDev = "useState";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return updateState(initialState);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useDebugValue: function(value, formatterFn) {
-                currentHookNameInDev = "useDebugValue";
-                updateHookTypesDev();
-                return updateDebugValue();
-              },
-              useDeferredValue: function(value) {
-                currentHookNameInDev = "useDeferredValue";
-                updateHookTypesDev();
-                return updateDeferredValue(value);
-              },
-              useTransition: function() {
-                currentHookNameInDev = "useTransition";
-                updateHookTypesDev();
-                return updateTransition();
-              },
-              useMutableSource: function(source, getSnapshot, subscribe) {
-                currentHookNameInDev = "useMutableSource";
-                updateHookTypesDev();
-                return updateMutableSource(source, getSnapshot, subscribe);
-              },
-              useOpaqueIdentifier: function() {
-                currentHookNameInDev = "useOpaqueIdentifier";
-                updateHookTypesDev();
-                return updateOpaqueIdentifier();
-              },
-              unstable_isNewReconciler: enableNewReconciler
-            };
-            HooksDispatcherOnRerenderInDEV = {
-              readContext: function(context, observedBits) {
-                return readContext(context, observedBits);
-              },
-              useCallback: function(callback, deps) {
-                currentHookNameInDev = "useCallback";
-                updateHookTypesDev();
-                return updateCallback(callback, deps);
-              },
-              useContext: function(context, observedBits) {
-                currentHookNameInDev = "useContext";
-                updateHookTypesDev();
-                return readContext(context, observedBits);
-              },
-              useEffect: function(create, deps) {
-                currentHookNameInDev = "useEffect";
-                updateHookTypesDev();
-                return updateEffect(create, deps);
-              },
-              useImperativeHandle: function(ref, create, deps) {
-                currentHookNameInDev = "useImperativeHandle";
-                updateHookTypesDev();
-                return updateImperativeHandle(ref, create, deps);
-              },
-              useLayoutEffect: function(create, deps) {
-                currentHookNameInDev = "useLayoutEffect";
-                updateHookTypesDev();
-                return updateLayoutEffect(create, deps);
-              },
-              useMemo: function(create, deps) {
-                currentHookNameInDev = "useMemo";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
-                try {
-                  return updateMemo(create, deps);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useReducer: function(reducer, initialArg, init) {
-                currentHookNameInDev = "useReducer";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
-                try {
-                  return rerenderReducer(reducer, initialArg, init);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useRef: function(initialValue) {
-                currentHookNameInDev = "useRef";
-                updateHookTypesDev();
-                return updateRef();
-              },
-              useState: function(initialState) {
-                currentHookNameInDev = "useState";
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
-                try {
-                  return rerenderState(initialState);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useDebugValue: function(value, formatterFn) {
-                currentHookNameInDev = "useDebugValue";
-                updateHookTypesDev();
-                return updateDebugValue();
-              },
-              useDeferredValue: function(value) {
-                currentHookNameInDev = "useDeferredValue";
-                updateHookTypesDev();
-                return rerenderDeferredValue(value);
-              },
-              useTransition: function() {
-                currentHookNameInDev = "useTransition";
-                updateHookTypesDev();
-                return rerenderTransition();
-              },
-              useMutableSource: function(source, getSnapshot, subscribe) {
-                currentHookNameInDev = "useMutableSource";
-                updateHookTypesDev();
-                return updateMutableSource(source, getSnapshot, subscribe);
-              },
-              useOpaqueIdentifier: function() {
-                currentHookNameInDev = "useOpaqueIdentifier";
-                updateHookTypesDev();
-                return rerenderOpaqueIdentifier();
-              },
-              unstable_isNewReconciler: enableNewReconciler
-            };
-            InvalidNestedHooksDispatcherOnMountInDEV = {
-              readContext: function(context, observedBits) {
-                warnInvalidContextAccess();
-                return readContext(context, observedBits);
-              },
-              useCallback: function(callback, deps) {
-                currentHookNameInDev = "useCallback";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountCallback(callback, deps);
-              },
-              useContext: function(context, observedBits) {
-                currentHookNameInDev = "useContext";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return readContext(context, observedBits);
-              },
-              useEffect: function(create, deps) {
-                currentHookNameInDev = "useEffect";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountEffect(create, deps);
-              },
-              useImperativeHandle: function(ref, create, deps) {
-                currentHookNameInDev = "useImperativeHandle";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountImperativeHandle(ref, create, deps);
-              },
-              useLayoutEffect: function(create, deps) {
-                currentHookNameInDev = "useLayoutEffect";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountLayoutEffect(create, deps);
-              },
-              useMemo: function(create, deps) {
-                currentHookNameInDev = "useMemo";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountMemo(create, deps);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useReducer: function(reducer, initialArg, init) {
-                currentHookNameInDev = "useReducer";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountReducer(reducer, initialArg, init);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useRef: function(initialValue) {
-                currentHookNameInDev = "useRef";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountRef(initialValue);
-              },
-              useState: function(initialState) {
-                currentHookNameInDev = "useState";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
-                try {
-                  return mountState(initialState);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useDebugValue: function(value, formatterFn) {
-                currentHookNameInDev = "useDebugValue";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountDebugValue();
-              },
-              useDeferredValue: function(value) {
-                currentHookNameInDev = "useDeferredValue";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountDeferredValue(value);
-              },
-              useTransition: function() {
-                currentHookNameInDev = "useTransition";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountTransition();
-              },
-              useMutableSource: function(source, getSnapshot, subscribe) {
-                currentHookNameInDev = "useMutableSource";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountMutableSource(source, getSnapshot, subscribe);
-              },
-              useOpaqueIdentifier: function() {
-                currentHookNameInDev = "useOpaqueIdentifier";
-                warnInvalidHookAccess();
-                mountHookTypesDev();
-                return mountOpaqueIdentifier();
-              },
-              unstable_isNewReconciler: enableNewReconciler
-            };
-            InvalidNestedHooksDispatcherOnUpdateInDEV = {
-              readContext: function(context, observedBits) {
-                warnInvalidContextAccess();
-                return readContext(context, observedBits);
-              },
-              useCallback: function(callback, deps) {
-                currentHookNameInDev = "useCallback";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateCallback(callback, deps);
-              },
-              useContext: function(context, observedBits) {
-                currentHookNameInDev = "useContext";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return readContext(context, observedBits);
-              },
-              useEffect: function(create, deps) {
-                currentHookNameInDev = "useEffect";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateEffect(create, deps);
-              },
-              useImperativeHandle: function(ref, create, deps) {
-                currentHookNameInDev = "useImperativeHandle";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateImperativeHandle(ref, create, deps);
-              },
-              useLayoutEffect: function(create, deps) {
-                currentHookNameInDev = "useLayoutEffect";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateLayoutEffect(create, deps);
-              },
-              useMemo: function(create, deps) {
-                currentHookNameInDev = "useMemo";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return updateMemo(create, deps);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useReducer: function(reducer, initialArg, init) {
-                currentHookNameInDev = "useReducer";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return updateReducer(reducer, initialArg, init);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useRef: function(initialValue) {
-                currentHookNameInDev = "useRef";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateRef();
-              },
-              useState: function(initialState) {
-                currentHookNameInDev = "useState";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return updateState(initialState);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useDebugValue: function(value, formatterFn) {
-                currentHookNameInDev = "useDebugValue";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateDebugValue();
-              },
-              useDeferredValue: function(value) {
-                currentHookNameInDev = "useDeferredValue";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateDeferredValue(value);
-              },
-              useTransition: function() {
-                currentHookNameInDev = "useTransition";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateTransition();
-              },
-              useMutableSource: function(source, getSnapshot, subscribe) {
-                currentHookNameInDev = "useMutableSource";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateMutableSource(source, getSnapshot, subscribe);
-              },
-              useOpaqueIdentifier: function() {
-                currentHookNameInDev = "useOpaqueIdentifier";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateOpaqueIdentifier();
-              },
-              unstable_isNewReconciler: enableNewReconciler
-            };
-            InvalidNestedHooksDispatcherOnRerenderInDEV = {
-              readContext: function(context, observedBits) {
-                warnInvalidContextAccess();
-                return readContext(context, observedBits);
-              },
-              useCallback: function(callback, deps) {
-                currentHookNameInDev = "useCallback";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateCallback(callback, deps);
-              },
-              useContext: function(context, observedBits) {
-                currentHookNameInDev = "useContext";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return readContext(context, observedBits);
-              },
-              useEffect: function(create, deps) {
-                currentHookNameInDev = "useEffect";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateEffect(create, deps);
-              },
-              useImperativeHandle: function(ref, create, deps) {
-                currentHookNameInDev = "useImperativeHandle";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateImperativeHandle(ref, create, deps);
-              },
-              useLayoutEffect: function(create, deps) {
-                currentHookNameInDev = "useLayoutEffect";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateLayoutEffect(create, deps);
-              },
-              useMemo: function(create, deps) {
-                currentHookNameInDev = "useMemo";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return updateMemo(create, deps);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useReducer: function(reducer, initialArg, init) {
-                currentHookNameInDev = "useReducer";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return rerenderReducer(reducer, initialArg, init);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useRef: function(initialValue) {
-                currentHookNameInDev = "useRef";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateRef();
-              },
-              useState: function(initialState) {
-                currentHookNameInDev = "useState";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                var prevDispatcher = ReactCurrentDispatcher$1.current;
-                ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
-                try {
-                  return rerenderState(initialState);
-                } finally {
-                  ReactCurrentDispatcher$1.current = prevDispatcher;
-                }
-              },
-              useDebugValue: function(value, formatterFn) {
-                currentHookNameInDev = "useDebugValue";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateDebugValue();
-              },
-              useDeferredValue: function(value) {
-                currentHookNameInDev = "useDeferredValue";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return rerenderDeferredValue(value);
-              },
-              useTransition: function() {
-                currentHookNameInDev = "useTransition";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return rerenderTransition();
-              },
-              useMutableSource: function(source, getSnapshot, subscribe) {
-                currentHookNameInDev = "useMutableSource";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return updateMutableSource(source, getSnapshot, subscribe);
-              },
-              useOpaqueIdentifier: function() {
-                currentHookNameInDev = "useOpaqueIdentifier";
-                warnInvalidHookAccess();
-                updateHookTypesDev();
-                return rerenderOpaqueIdentifier();
-              },
-              unstable_isNewReconciler: enableNewReconciler
-            };
+            HooksDispatcherOnMountInDEV = { readContext: function(context, observedBits) {
+              return readContext(context, observedBits);
+            }, useCallback: function(callback, deps) {
+              currentHookNameInDev = "useCallback";
+              mountHookTypesDev();
+              checkDepsAreArrayDev(deps);
+              return mountCallback(callback, deps);
+            }, useContext: function(context, observedBits) {
+              currentHookNameInDev = "useContext";
+              mountHookTypesDev();
+              return readContext(context, observedBits);
+            }, useEffect: function(create, deps) {
+              currentHookNameInDev = "useEffect";
+              mountHookTypesDev();
+              checkDepsAreArrayDev(deps);
+              return mountEffect(create, deps);
+            }, useImperativeHandle: function(ref, create, deps) {
+              currentHookNameInDev = "useImperativeHandle";
+              mountHookTypesDev();
+              checkDepsAreArrayDev(deps);
+              return mountImperativeHandle(ref, create, deps);
+            }, useLayoutEffect: function(create, deps) {
+              currentHookNameInDev = "useLayoutEffect";
+              mountHookTypesDev();
+              checkDepsAreArrayDev(deps);
+              return mountLayoutEffect(create, deps);
+            }, useMemo: function(create, deps) {
+              currentHookNameInDev = "useMemo";
+              mountHookTypesDev();
+              checkDepsAreArrayDev(deps);
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountMemo(create, deps);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useReducer: function(reducer, initialArg, init) {
+              currentHookNameInDev = "useReducer";
+              mountHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountReducer(reducer, initialArg, init);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useRef: function(initialValue) {
+              currentHookNameInDev = "useRef";
+              mountHookTypesDev();
+              return mountRef(initialValue);
+            }, useState: function(initialState) {
+              currentHookNameInDev = "useState";
+              mountHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountState(initialState);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useDebugValue: function(value, formatterFn) {
+              currentHookNameInDev = "useDebugValue";
+              mountHookTypesDev();
+              return mountDebugValue();
+            }, useDeferredValue: function(value) {
+              currentHookNameInDev = "useDeferredValue";
+              mountHookTypesDev();
+              return mountDeferredValue(value);
+            }, useTransition: function() {
+              currentHookNameInDev = "useTransition";
+              mountHookTypesDev();
+              return mountTransition();
+            }, useMutableSource: function(source, getSnapshot, subscribe) {
+              currentHookNameInDev = "useMutableSource";
+              mountHookTypesDev();
+              return mountMutableSource(source, getSnapshot, subscribe);
+            }, useOpaqueIdentifier: function() {
+              currentHookNameInDev = "useOpaqueIdentifier";
+              mountHookTypesDev();
+              return mountOpaqueIdentifier();
+            }, unstable_isNewReconciler: enableNewReconciler };
+            HooksDispatcherOnMountWithHookTypesInDEV = { readContext: function(context, observedBits) {
+              return readContext(context, observedBits);
+            }, useCallback: function(callback, deps) {
+              currentHookNameInDev = "useCallback";
+              updateHookTypesDev();
+              return mountCallback(callback, deps);
+            }, useContext: function(context, observedBits) {
+              currentHookNameInDev = "useContext";
+              updateHookTypesDev();
+              return readContext(context, observedBits);
+            }, useEffect: function(create, deps) {
+              currentHookNameInDev = "useEffect";
+              updateHookTypesDev();
+              return mountEffect(create, deps);
+            }, useImperativeHandle: function(ref, create, deps) {
+              currentHookNameInDev = "useImperativeHandle";
+              updateHookTypesDev();
+              return mountImperativeHandle(ref, create, deps);
+            }, useLayoutEffect: function(create, deps) {
+              currentHookNameInDev = "useLayoutEffect";
+              updateHookTypesDev();
+              return mountLayoutEffect(create, deps);
+            }, useMemo: function(create, deps) {
+              currentHookNameInDev = "useMemo";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountMemo(create, deps);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useReducer: function(reducer, initialArg, init) {
+              currentHookNameInDev = "useReducer";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountReducer(reducer, initialArg, init);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useRef: function(initialValue) {
+              currentHookNameInDev = "useRef";
+              updateHookTypesDev();
+              return mountRef(initialValue);
+            }, useState: function(initialState) {
+              currentHookNameInDev = "useState";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountState(initialState);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useDebugValue: function(value, formatterFn) {
+              currentHookNameInDev = "useDebugValue";
+              updateHookTypesDev();
+              return mountDebugValue();
+            }, useDeferredValue: function(value) {
+              currentHookNameInDev = "useDeferredValue";
+              updateHookTypesDev();
+              return mountDeferredValue(value);
+            }, useTransition: function() {
+              currentHookNameInDev = "useTransition";
+              updateHookTypesDev();
+              return mountTransition();
+            }, useMutableSource: function(source, getSnapshot, subscribe) {
+              currentHookNameInDev = "useMutableSource";
+              updateHookTypesDev();
+              return mountMutableSource(source, getSnapshot, subscribe);
+            }, useOpaqueIdentifier: function() {
+              currentHookNameInDev = "useOpaqueIdentifier";
+              updateHookTypesDev();
+              return mountOpaqueIdentifier();
+            }, unstable_isNewReconciler: enableNewReconciler };
+            HooksDispatcherOnUpdateInDEV = { readContext: function(context, observedBits) {
+              return readContext(context, observedBits);
+            }, useCallback: function(callback, deps) {
+              currentHookNameInDev = "useCallback";
+              updateHookTypesDev();
+              return updateCallback(callback, deps);
+            }, useContext: function(context, observedBits) {
+              currentHookNameInDev = "useContext";
+              updateHookTypesDev();
+              return readContext(context, observedBits);
+            }, useEffect: function(create, deps) {
+              currentHookNameInDev = "useEffect";
+              updateHookTypesDev();
+              return updateEffect(create, deps);
+            }, useImperativeHandle: function(ref, create, deps) {
+              currentHookNameInDev = "useImperativeHandle";
+              updateHookTypesDev();
+              return updateImperativeHandle(ref, create, deps);
+            }, useLayoutEffect: function(create, deps) {
+              currentHookNameInDev = "useLayoutEffect";
+              updateHookTypesDev();
+              return updateLayoutEffect(create, deps);
+            }, useMemo: function(create, deps) {
+              currentHookNameInDev = "useMemo";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return updateMemo(create, deps);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useReducer: function(reducer, initialArg, init) {
+              currentHookNameInDev = "useReducer";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return updateReducer(reducer, initialArg, init);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useRef: function(initialValue) {
+              currentHookNameInDev = "useRef";
+              updateHookTypesDev();
+              return updateRef();
+            }, useState: function(initialState) {
+              currentHookNameInDev = "useState";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return updateState(initialState);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useDebugValue: function(value, formatterFn) {
+              currentHookNameInDev = "useDebugValue";
+              updateHookTypesDev();
+              return updateDebugValue();
+            }, useDeferredValue: function(value) {
+              currentHookNameInDev = "useDeferredValue";
+              updateHookTypesDev();
+              return updateDeferredValue(value);
+            }, useTransition: function() {
+              currentHookNameInDev = "useTransition";
+              updateHookTypesDev();
+              return updateTransition();
+            }, useMutableSource: function(source, getSnapshot, subscribe) {
+              currentHookNameInDev = "useMutableSource";
+              updateHookTypesDev();
+              return updateMutableSource(source, getSnapshot, subscribe);
+            }, useOpaqueIdentifier: function() {
+              currentHookNameInDev = "useOpaqueIdentifier";
+              updateHookTypesDev();
+              return updateOpaqueIdentifier();
+            }, unstable_isNewReconciler: enableNewReconciler };
+            HooksDispatcherOnRerenderInDEV = { readContext: function(context, observedBits) {
+              return readContext(context, observedBits);
+            }, useCallback: function(callback, deps) {
+              currentHookNameInDev = "useCallback";
+              updateHookTypesDev();
+              return updateCallback(callback, deps);
+            }, useContext: function(context, observedBits) {
+              currentHookNameInDev = "useContext";
+              updateHookTypesDev();
+              return readContext(context, observedBits);
+            }, useEffect: function(create, deps) {
+              currentHookNameInDev = "useEffect";
+              updateHookTypesDev();
+              return updateEffect(create, deps);
+            }, useImperativeHandle: function(ref, create, deps) {
+              currentHookNameInDev = "useImperativeHandle";
+              updateHookTypesDev();
+              return updateImperativeHandle(ref, create, deps);
+            }, useLayoutEffect: function(create, deps) {
+              currentHookNameInDev = "useLayoutEffect";
+              updateHookTypesDev();
+              return updateLayoutEffect(create, deps);
+            }, useMemo: function(create, deps) {
+              currentHookNameInDev = "useMemo";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
+              try {
+                return updateMemo(create, deps);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useReducer: function(reducer, initialArg, init) {
+              currentHookNameInDev = "useReducer";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
+              try {
+                return rerenderReducer(reducer, initialArg, init);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useRef: function(initialValue) {
+              currentHookNameInDev = "useRef";
+              updateHookTypesDev();
+              return updateRef();
+            }, useState: function(initialState) {
+              currentHookNameInDev = "useState";
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
+              try {
+                return rerenderState(initialState);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useDebugValue: function(value, formatterFn) {
+              currentHookNameInDev = "useDebugValue";
+              updateHookTypesDev();
+              return updateDebugValue();
+            }, useDeferredValue: function(value) {
+              currentHookNameInDev = "useDeferredValue";
+              updateHookTypesDev();
+              return rerenderDeferredValue(value);
+            }, useTransition: function() {
+              currentHookNameInDev = "useTransition";
+              updateHookTypesDev();
+              return rerenderTransition();
+            }, useMutableSource: function(source, getSnapshot, subscribe) {
+              currentHookNameInDev = "useMutableSource";
+              updateHookTypesDev();
+              return updateMutableSource(source, getSnapshot, subscribe);
+            }, useOpaqueIdentifier: function() {
+              currentHookNameInDev = "useOpaqueIdentifier";
+              updateHookTypesDev();
+              return rerenderOpaqueIdentifier();
+            }, unstable_isNewReconciler: enableNewReconciler };
+            InvalidNestedHooksDispatcherOnMountInDEV = { readContext: function(context, observedBits) {
+              warnInvalidContextAccess();
+              return readContext(context, observedBits);
+            }, useCallback: function(callback, deps) {
+              currentHookNameInDev = "useCallback";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountCallback(callback, deps);
+            }, useContext: function(context, observedBits) {
+              currentHookNameInDev = "useContext";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return readContext(context, observedBits);
+            }, useEffect: function(create, deps) {
+              currentHookNameInDev = "useEffect";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountEffect(create, deps);
+            }, useImperativeHandle: function(ref, create, deps) {
+              currentHookNameInDev = "useImperativeHandle";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountImperativeHandle(ref, create, deps);
+            }, useLayoutEffect: function(create, deps) {
+              currentHookNameInDev = "useLayoutEffect";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountLayoutEffect(create, deps);
+            }, useMemo: function(create, deps) {
+              currentHookNameInDev = "useMemo";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountMemo(create, deps);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useReducer: function(reducer, initialArg, init) {
+              currentHookNameInDev = "useReducer";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountReducer(reducer, initialArg, init);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useRef: function(initialValue) {
+              currentHookNameInDev = "useRef";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountRef(initialValue);
+            }, useState: function(initialState) {
+              currentHookNameInDev = "useState";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
+              try {
+                return mountState(initialState);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useDebugValue: function(value, formatterFn) {
+              currentHookNameInDev = "useDebugValue";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountDebugValue();
+            }, useDeferredValue: function(value) {
+              currentHookNameInDev = "useDeferredValue";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountDeferredValue(value);
+            }, useTransition: function() {
+              currentHookNameInDev = "useTransition";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountTransition();
+            }, useMutableSource: function(source, getSnapshot, subscribe) {
+              currentHookNameInDev = "useMutableSource";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountMutableSource(source, getSnapshot, subscribe);
+            }, useOpaqueIdentifier: function() {
+              currentHookNameInDev = "useOpaqueIdentifier";
+              warnInvalidHookAccess();
+              mountHookTypesDev();
+              return mountOpaqueIdentifier();
+            }, unstable_isNewReconciler: enableNewReconciler };
+            InvalidNestedHooksDispatcherOnUpdateInDEV = { readContext: function(context, observedBits) {
+              warnInvalidContextAccess();
+              return readContext(context, observedBits);
+            }, useCallback: function(callback, deps) {
+              currentHookNameInDev = "useCallback";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateCallback(callback, deps);
+            }, useContext: function(context, observedBits) {
+              currentHookNameInDev = "useContext";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return readContext(context, observedBits);
+            }, useEffect: function(create, deps) {
+              currentHookNameInDev = "useEffect";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateEffect(create, deps);
+            }, useImperativeHandle: function(ref, create, deps) {
+              currentHookNameInDev = "useImperativeHandle";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateImperativeHandle(ref, create, deps);
+            }, useLayoutEffect: function(create, deps) {
+              currentHookNameInDev = "useLayoutEffect";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateLayoutEffect(create, deps);
+            }, useMemo: function(create, deps) {
+              currentHookNameInDev = "useMemo";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return updateMemo(create, deps);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useReducer: function(reducer, initialArg, init) {
+              currentHookNameInDev = "useReducer";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return updateReducer(reducer, initialArg, init);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useRef: function(initialValue) {
+              currentHookNameInDev = "useRef";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateRef();
+            }, useState: function(initialState) {
+              currentHookNameInDev = "useState";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return updateState(initialState);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useDebugValue: function(value, formatterFn) {
+              currentHookNameInDev = "useDebugValue";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateDebugValue();
+            }, useDeferredValue: function(value) {
+              currentHookNameInDev = "useDeferredValue";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateDeferredValue(value);
+            }, useTransition: function() {
+              currentHookNameInDev = "useTransition";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateTransition();
+            }, useMutableSource: function(source, getSnapshot, subscribe) {
+              currentHookNameInDev = "useMutableSource";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateMutableSource(source, getSnapshot, subscribe);
+            }, useOpaqueIdentifier: function() {
+              currentHookNameInDev = "useOpaqueIdentifier";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateOpaqueIdentifier();
+            }, unstable_isNewReconciler: enableNewReconciler };
+            InvalidNestedHooksDispatcherOnRerenderInDEV = { readContext: function(context, observedBits) {
+              warnInvalidContextAccess();
+              return readContext(context, observedBits);
+            }, useCallback: function(callback, deps) {
+              currentHookNameInDev = "useCallback";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateCallback(callback, deps);
+            }, useContext: function(context, observedBits) {
+              currentHookNameInDev = "useContext";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return readContext(context, observedBits);
+            }, useEffect: function(create, deps) {
+              currentHookNameInDev = "useEffect";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateEffect(create, deps);
+            }, useImperativeHandle: function(ref, create, deps) {
+              currentHookNameInDev = "useImperativeHandle";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateImperativeHandle(ref, create, deps);
+            }, useLayoutEffect: function(create, deps) {
+              currentHookNameInDev = "useLayoutEffect";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateLayoutEffect(create, deps);
+            }, useMemo: function(create, deps) {
+              currentHookNameInDev = "useMemo";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return updateMemo(create, deps);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useReducer: function(reducer, initialArg, init) {
+              currentHookNameInDev = "useReducer";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return rerenderReducer(reducer, initialArg, init);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useRef: function(initialValue) {
+              currentHookNameInDev = "useRef";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateRef();
+            }, useState: function(initialState) {
+              currentHookNameInDev = "useState";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              var prevDispatcher = ReactCurrentDispatcher$1.current;
+              ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
+              try {
+                return rerenderState(initialState);
+              } finally {
+                ReactCurrentDispatcher$1.current = prevDispatcher;
+              }
+            }, useDebugValue: function(value, formatterFn) {
+              currentHookNameInDev = "useDebugValue";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateDebugValue();
+            }, useDeferredValue: function(value) {
+              currentHookNameInDev = "useDeferredValue";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return rerenderDeferredValue(value);
+            }, useTransition: function() {
+              currentHookNameInDev = "useTransition";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return rerenderTransition();
+            }, useMutableSource: function(source, getSnapshot, subscribe) {
+              currentHookNameInDev = "useMutableSource";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return updateMutableSource(source, getSnapshot, subscribe);
+            }, useOpaqueIdentifier: function() {
+              currentHookNameInDev = "useOpaqueIdentifier";
+              warnInvalidHookAccess();
+              updateHookTypesDev();
+              return rerenderOpaqueIdentifier();
+            }, unstable_isNewReconciler: enableNewReconciler };
           }
           var now$1 = Scheduler.unstable_now;
           var commitTime = 0;
@@ -14436,9 +13815,7 @@
             var prevState = current2 !== null ? current2.memoizedState : null;
             if (nextProps.mode === "hidden" || nextProps.mode === "unstable-defer-without-hiding") {
               if ((workInProgress2.mode & ConcurrentMode) === NoMode) {
-                var nextState = {
-                  baseLanes: NoLanes
-                };
+                var nextState = { baseLanes: NoLanes };
                 workInProgress2.memoizedState = nextState;
                 pushRenderLanes(workInProgress2, renderLanes2);
               } else if (!includesSomeLane(renderLanes2, OffscreenLane)) {
@@ -14453,16 +13830,12 @@
                   markSpawnedWork(OffscreenLane);
                 }
                 workInProgress2.lanes = workInProgress2.childLanes = laneToLanes(OffscreenLane);
-                var _nextState = {
-                  baseLanes: nextBaseLanes
-                };
+                var _nextState = { baseLanes: nextBaseLanes };
                 workInProgress2.memoizedState = _nextState;
                 pushRenderLanes(workInProgress2, nextBaseLanes);
                 return null;
               } else {
-                var _nextState2 = {
-                  baseLanes: NoLanes
-                };
+                var _nextState2 = { baseLanes: NoLanes };
                 workInProgress2.memoizedState = _nextState2;
                 var subtreeRenderLanes2 = prevState !== null ? prevState.baseLanes : renderLanes2;
                 pushRenderLanes(workInProgress2, subtreeRenderLanes2);
@@ -14921,19 +14294,12 @@
               }
             }
           }
-          var SUSPENDED_MARKER = {
-            dehydrated: null,
-            retryLane: NoLane
-          };
+          var SUSPENDED_MARKER = { dehydrated: null, retryLane: NoLane };
           function mountSuspenseOffscreenState(renderLanes2) {
-            return {
-              baseLanes: renderLanes2
-            };
+            return { baseLanes: renderLanes2 };
           }
           function updateSuspenseOffscreenState(prevOffscreenState, renderLanes2) {
-            return {
-              baseLanes: mergeLanes(prevOffscreenState.baseLanes, renderLanes2)
-            };
+            return { baseLanes: mergeLanes(prevOffscreenState.baseLanes, renderLanes2) };
           }
           function shouldRemainOnFallback(suspenseContext, current2, workInProgress2, renderLanes2) {
             if (current2 !== null) {
@@ -15035,10 +14401,7 @@
           }
           function mountSuspensePrimaryChildren(workInProgress2, primaryChildren, renderLanes2) {
             var mode = workInProgress2.mode;
-            var primaryChildProps = {
-              mode: "visible",
-              children: primaryChildren
-            };
+            var primaryChildProps = { mode: "visible", children: primaryChildren };
             var primaryChildFragment = createFiberFromOffscreen(primaryChildProps, mode, renderLanes2, null);
             primaryChildFragment.return = workInProgress2;
             workInProgress2.child = primaryChildFragment;
@@ -15047,10 +14410,7 @@
           function mountSuspenseFallbackChildren(workInProgress2, primaryChildren, fallbackChildren, renderLanes2) {
             var mode = workInProgress2.mode;
             var progressedPrimaryFragment = workInProgress2.child;
-            var primaryChildProps = {
-              mode: "hidden",
-              children: primaryChildren
-            };
+            var primaryChildProps = { mode: "hidden", children: primaryChildren };
             var primaryChildFragment;
             var fallbackChildFragment;
             if ((mode & BlockingMode) === NoMode && progressedPrimaryFragment !== null) {
@@ -15080,10 +14440,7 @@
           function updateSuspensePrimaryChildren(current2, workInProgress2, primaryChildren, renderLanes2) {
             var currentPrimaryChildFragment = current2.child;
             var currentFallbackChildFragment = currentPrimaryChildFragment.sibling;
-            var primaryChildFragment = createWorkInProgressOffscreenFiber(currentPrimaryChildFragment, {
-              mode: "visible",
-              children: primaryChildren
-            });
+            var primaryChildFragment = createWorkInProgressOffscreenFiber(currentPrimaryChildFragment, { mode: "visible", children: primaryChildren });
             if ((workInProgress2.mode & BlockingMode) === NoMode) {
               primaryChildFragment.lanes = renderLanes2;
             }
@@ -15101,10 +14458,7 @@
             var mode = workInProgress2.mode;
             var currentPrimaryChildFragment = current2.child;
             var currentFallbackChildFragment = currentPrimaryChildFragment.sibling;
-            var primaryChildProps = {
-              mode: "hidden",
-              children: primaryChildren
-            };
+            var primaryChildProps = { mode: "hidden", children: primaryChildren };
             var primaryChildFragment;
             if ((mode & BlockingMode) === NoMode && workInProgress2.child !== currentPrimaryChildFragment) {
               var progressedPrimaryFragment = workInProgress2.child;
@@ -15274,15 +14628,7 @@
           function initSuspenseListRenderState(workInProgress2, isBackwards, tail, lastContentRow, tailMode, lastEffectBeforeRendering) {
             var renderState = workInProgress2.memoizedState;
             if (renderState === null) {
-              workInProgress2.memoizedState = {
-                isBackwards,
-                rendering: null,
-                renderingStartTime: 0,
-                last: lastContentRow,
-                tail,
-                tailMode,
-                lastEffect: lastEffectBeforeRendering
-              };
+              workInProgress2.memoizedState = { isBackwards, rendering: null, renderingStartTime: 0, last: lastContentRow, tail, tailMode, lastEffect: lastEffectBeforeRendering };
             } else {
               renderState.isBackwards = isBackwards;
               renderState.rendering = null;
@@ -16200,11 +15546,7 @@
             }
           }
           function createCapturedValue(value, source) {
-            return {
-              value,
-              source,
-              stack: getStackByFiberInDevAndProd(source)
-            };
+            return { value, source, stack: getStackByFiberInDevAndProd(source) };
           }
           function showErrorDialog(boundary, errorInfo) {
             return true;
@@ -16250,9 +15592,7 @@
           function createRootErrorUpdate(fiber, errorInfo, lane) {
             var update = createUpdate(NoTimestamp, lane);
             update.tag = CaptureUpdate;
-            update.payload = {
-              element: null
-            };
+            update.payload = { element: null };
             var error2 = errorInfo.value;
             update.callback = function() {
               onUncaughtError(error2);
@@ -16283,9 +15623,7 @@
                 }
                 var error$12 = errorInfo.value;
                 var stack = errorInfo.stack;
-                this.componentDidCatch(error$12, {
-                  componentStack: stack !== null ? stack : ""
-                });
+                this.componentDidCatch(error$12, { componentStack: stack !== null ? stack : "" });
                 {
                   if (typeof getDerivedStateFromError !== "function") {
                     if (!includesSomeLane(fiber.lanes, SyncLane)) {
@@ -18761,9 +18099,7 @@
               }
             }
           }
-          var IsThisRendererActing = {
-            current: false
-          };
+          var IsThisRendererActing = { current: false };
           function warnIfNotScopedWithMatchingAct(fiber) {
             {
               if (IsSomeRendererActing.current === true && IsThisRendererActing.current !== true) {
@@ -18955,10 +18291,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                 if (type !== null && type !== void 0 && typeof type.render === "function") {
                   var currentRender = resolveFunctionForHotReloading(type.render);
                   if (type.render !== currentRender) {
-                    var syntheticType = {
-                      $$typeof: REACT_FORWARD_REF_TYPE,
-                      render: currentRender
-                    };
+                    var syntheticType = { $$typeof: REACT_FORWARD_REF_TYPE, render: currentRender };
                     if (type.displayName !== void 0) {
                       syntheticType.displayName = type.displayName;
                     }
@@ -19323,10 +18656,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             workInProgress2.memoizedState = current2.memoizedState;
             workInProgress2.updateQueue = current2.updateQueue;
             var currentDependencies = current2.dependencies;
-            workInProgress2.dependencies = currentDependencies === null ? null : {
-              lanes: currentDependencies.lanes,
-              firstContext: currentDependencies.firstContext
-            };
+            workInProgress2.dependencies = currentDependencies === null ? null : { lanes: currentDependencies.lanes, firstContext: currentDependencies.firstContext };
             workInProgress2.sibling = current2.sibling;
             workInProgress2.index = current2.index;
             workInProgress2.ref = current2.ref;
@@ -19380,10 +18710,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               workInProgress2.updateQueue = current2.updateQueue;
               workInProgress2.type = current2.type;
               var currentDependencies = current2.dependencies;
-              workInProgress2.dependencies = currentDependencies === null ? null : {
-                lanes: currentDependencies.lanes,
-                firstContext: currentDependencies.firstContext
-              };
+              workInProgress2.dependencies = currentDependencies === null ? null : { lanes: currentDependencies.lanes, firstContext: currentDependencies.firstContext };
               {
                 workInProgress2.selfBaseDuration = current2.selfBaseDuration;
                 workInProgress2.treeBaseDuration = current2.treeBaseDuration;
@@ -19530,10 +18857,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             fiber.type = REACT_PROFILER_TYPE;
             fiber.lanes = lanes;
             {
-              fiber.stateNode = {
-                effectDuration: 0,
-                passiveEffectDuration: 0
-              };
+              fiber.stateNode = { effectDuration: 0, passiveEffectDuration: 0 };
             }
             return fiber;
           }
@@ -19800,9 +19124,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               }
             }
             var update = createUpdate(eventTime, lane);
-            update.payload = {
-              element
-            };
+            update.payload = { element };
             callback = callback === void 0 ? null : callback;
             if (callback !== null) {
               {
@@ -20184,9 +19506,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                 warn("render(): Calling ReactDOM.render() to hydrate server-rendered markup will stop working in React v18. Replace the ReactDOM.render() call with ReactDOM.hydrate() if you want React to attach to the server HTML.");
               }
             }
-            return createLegacyRoot(container, shouldHydrate ? {
-              hydrate: true
-            } : void 0);
+            return createLegacyRoot(container, shouldHydrate ? { hydrate: true } : void 0);
           }
           function warnOnInvalidCallback$1(callback, callerName) {
             {
@@ -20374,12 +19694,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               IsThisRendererActing
             ]
           };
-          var foundDevTools = injectIntoDevTools({
-            findFiberByHostInstance: getClosestInstanceFromNode,
-            bundleType: 1,
-            version: ReactVersion,
-            rendererPackageName: "react-dom"
-          });
+          var foundDevTools = injectIntoDevTools({ findFiberByHostInstance: getClosestInstanceFromNode, bundleType: 1, version: ReactVersion, rendererPackageName: "react-dom" });
           {
             if (!foundDevTools && canUseDOM && window.top === window.self) {
               if (navigator.userAgent.indexOf("Chrome") > -1 && navigator.userAgent.indexOf("Edge") === -1 || navigator.userAgent.indexOf("Firefox") > -1) {
@@ -20420,20 +19735,23 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   });
 
   // app.jsx
-  var React2 = __toESM(require_react_17_0());
-  var import_react_dom = __toESM(require_react_dom_17_0());
+  var import_react = __toESM(require_react_17_0(), 1);
+  var import_react_dom = __toESM(require_react_dom_17_0(), 1);
 
   // home.jsx
-  var React = __toESM(require_react_17_0());
+  var React = __toESM(require_react_17_0(), 1);
+  var Styled = () => {
+    return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "only this paragraph will get the style, but style-jsx not support esbuild!"));
+  };
   var home_default = () => {
-    return /* @__PURE__ */ React.createElement("h1", null, "good mornning world, great!");
+    return /* @__PURE__ */ React.createElement("h1", null, /* @__PURE__ */ React.createElement(Styled, null), "good mornning world!");
   };
 
   // app.jsx
   var App = () => {
-    return /* @__PURE__ */ React2.createElement(home_default, null);
+    return /* @__PURE__ */ import_react.default.createElement(home_default, null);
   };
-  import_react_dom.default.render(/* @__PURE__ */ React2.createElement(App, null), document.getElementById("div"));
+  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(App, null), document.getElementById("div"));
 })();
 /*
 object-assign
@@ -20441,18 +19759,18 @@ object-assign
 @license MIT
 */
 /**
- * Checks if an event is supported in the current execution environment.
- *
- * NOTE: This will not work correctly for non-generic events such as `change`,
- * `reset`, `load`, `error`, and `select`.
- *
- * Borrows from Modernizr.
- *
- * @param {string} eventNameSuffix Event name, e.g. "click".
- * @return {boolean} True if the event is supported.
- * @internal
- * @license Modernizr 3.0.0pre (Custom Build) | MIT
- */
+* Checks if an event is supported in the current execution environment.
+*
+* NOTE: This will not work correctly for non-generic events such as `change`,
+* `reset`, `load`, `error`, and `select`.
+*
+* Borrows from Modernizr.
+*
+* @param {string} eventNameSuffix Event name, e.g. "click".
+* @return {boolean} True if the event is supported.
+* @internal
+* @license Modernizr 3.0.0pre (Custom Build) | MIT
+*/
 /** @license React v0.20.2
  * scheduler-tracing.development.js
  *
